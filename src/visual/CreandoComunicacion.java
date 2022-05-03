@@ -16,23 +16,9 @@ public class CreandoComunicacion extends JFrame {
 
 	private JPanel contentPane;
 	private JMapViewer mapa;
+	private JFrame frame;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CreandoComunicacion frame = new CreandoComunicacion();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	
 	/**
 	 * Create the frame.
 	 */
@@ -69,5 +55,8 @@ public class CreandoComunicacion extends JFrame {
 		
 		
 	}
+	
+	
+	
 
 }

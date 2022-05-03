@@ -1,28 +1,35 @@
 package controlador;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JFrame;
 
 import modelo.Agencia;
 import visual.Bienvenida;
+import visual.CreandoAgencia;
+import visual.CreandoComunicacion;
 
 public class Controlador {
 	private Agencia modelo;
-	private Bienvenida guiBienvenida;
+	private JFrame gui;
+	
+	
 	
 	public Controlador() {
-		modelo = new Agencia();
-		guiBienvenida
+		
 		
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Bienvenida window = new Bienvenida();
+					modelo = new Agencia();
+					gui = new Bienvenida();
+					actualizarGUI();
 					
+					escucharEventosBienvenida();
 					
-					
-					
-					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 					
@@ -30,6 +37,43 @@ public class Controlador {
 			}
 		});
 	}
+	
+
+
+	
+	private void escucharEventosBienvenida() {
+		((Bienvenida) gui).lanzarEventoNuevaAgencia(new EscucharNuevaAgencia());
+	}
+	
+	
+	private void crearAgencia() {
+		System.out.println("hola");
+		this.gui.dispose();
+		this.gui = new CreandoAgencia();
+		actualizarGUI();
+		
+	}
+	
+	private void actualizarGUI() {
+		this.gui.setVisible(true);
+		this.gui.revalidate();
+		this.gui.repaint();
+	}
+	
+	
+	
+class EscucharNuevaAgencia implements ActionListener {
+		
+	
+		public void actionPerformed(ActionEvent e) {
+	
+			crearAgencia();
+
+		}
+	}
+
+
+		
 
 	
 }
