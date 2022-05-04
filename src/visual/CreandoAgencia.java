@@ -14,6 +14,8 @@ import java.awt.GridLayout;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.SystemColor;
+import java.awt.event.ActionListener;
+
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JTable;
@@ -25,6 +27,7 @@ public class CreandoAgencia extends JFrame {
 	private JTextField textFieldAlias;
 	private JTextField textFieldCodigo;
 	private JTable table;
+	private JButton botonAgregar;
 	
 
 
@@ -87,7 +90,7 @@ public class CreandoAgencia extends JFrame {
 		Component verticalStrut_2 = Box.createVerticalStrut(20);
 		panelFormularioNuevoAgente.add(verticalStrut_2);
 		
-		JButton botonAgregar = new JButton("Incorporar Agente");
+		botonAgregar = new JButton("Incorporar Agente");
 		botonAgregar.setForeground(Color.GREEN);
 		botonAgregar.setBackground(Color.BLACK);
 		botonAgregar.setFont(new Font("Dialog", Font.BOLD, 18));
@@ -110,6 +113,25 @@ public class CreandoAgencia extends JFrame {
 	}
 	
 	
+	public String obtenerTxtAlias() {
+		return textFieldAlias.getText();
+	}
 	
+	public String obtenerTxtCodigo() {
+		return textFieldCodigo.getText();
+	}
+	
+	public void borrarFormularioEspia() {
+		textFieldAlias.setText("");
+		textFieldCodigo.setText("");
+	}
+	
+	
+	
+	
+	public void lanzarEventoNuevoEspia(ActionListener escucharClic) {
+		
+		botonAgregar.addActionListener(escucharClic);
+	}
 
 }
