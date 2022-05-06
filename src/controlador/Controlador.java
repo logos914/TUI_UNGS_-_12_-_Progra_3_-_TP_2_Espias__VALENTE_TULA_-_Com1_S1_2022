@@ -23,7 +23,6 @@ public class Controlador {
 				try {
 					agencia = new Agencia();
 					gui = new Bienvenida();
-					
 					actualizarGUI();
 					escucharEventosBienvenida();
 
@@ -49,6 +48,8 @@ public class Controlador {
 		this.gui = new CreandoAgencia();
 		actualizarGUI();
 		escucharEventosCreandoAgencia();
+		
+		
 
 	}
 
@@ -61,6 +62,7 @@ public class Controlador {
 		this.agencia.reclutarEspia(nuevoEspia);
 
 		((CreandoAgencia) gui).borrarFormularioEspia();
+		((CreandoAgencia) gui).agregarFilaEnTabla(alias, codigo);
 		this.actualizarGUI();
 
 	}

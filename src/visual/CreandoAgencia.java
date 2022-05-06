@@ -6,12 +6,19 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumnModel;
+
 import java.awt.Color;
 import javax.swing.JTextField;
 import java.awt.Component;
 import javax.swing.Box;
 import java.awt.GridLayout;
 import javax.swing.JButton;
+import javax.swing.JComponent;
+
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionListener;
@@ -20,6 +27,9 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JTable;
 import javax.swing.BoxLayout;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
 
 public class CreandoAgencia extends JFrame {
 
@@ -28,6 +38,7 @@ public class CreandoAgencia extends JFrame {
 	private JTextField textFieldCodigo;
 	private JTable table;
 	private JButton botonAgregar;
+	private DefaultTableModel datosTabla;
 	
 
 
@@ -54,6 +65,7 @@ public class CreandoAgencia extends JFrame {
 		panelFormularioNuevoAgente.add(verticalStrut);
 		
 		JLabel lblIngresarAlias = new JLabel("Ingresá el Alias del Espía");
+		lblIngresarAlias.setHorizontalAlignment(SwingConstants.CENTER);
 		lblIngresarAlias.setVerticalAlignment(SwingConstants.BOTTOM);
 		lblIngresarAlias.setForeground(Color.RED);
 		lblIngresarAlias.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 16));
@@ -101,15 +113,53 @@ public class CreandoAgencia extends JFrame {
 		contentPane.add(panelListadoActualAgentes);
 		panelListadoActualAgentes.setLayout(new BorderLayout(0, 0));
 		
-		table = new JTable();
-		table.setBackground(Color.GRAY);
-		panelListadoActualAgentes.add(table);
+		
+		datosTabla = new DefaultTableModel(
+				new Object[][] {
+				},
+				new String[] {
+					"Agente", "Código"
+				}
+			);
+		
+		
+		
+		table = new JTable(datosTabla);
+		JTableHeader columnas = table.getTableHeader();
+		columnas.setVisible(true);
+		table.add(columnas);
+		
+		
+		JScrollPane scroll =new JScrollPane(table);
+		
+		darFormatoOscuro(scroll);
+		darFormatoOscuro(columnas);
+		darFormatoOscuro(table);
+		
+		table.setForeground(Color.RED);
+		panelListadoActualAgentes.add(scroll, BorderLayout.CENTER);
+		
+		
 		
 		JButton btnSiguiente = new JButton("Siguiente");
-		btnSiguiente.setForeground(Color.GREEN);
-		btnSiguiente.setFont(new Font("Dialog", Font.BOLD, 18));
-		btnSiguiente.setBackground(Color.BLACK);
+		darFormatoOscuro(btnSiguiente);
 		panelListadoActualAgentes.add(btnSiguiente, BorderLayout.SOUTH);
+		
+		
+		
+		DefaultTableCellRenderer renderer = (DefaultTableCellRenderer)table.getDefaultRenderer(Object.class);
+	       renderer.setHorizontalAlignment( SwingConstants.CENTER );
+		
+		
+		
+		
+		
+	}
+	
+	static void darFormatoOscuro(JComponent comp) {
+		comp.setForeground(Color.GREEN);
+		comp.setFont(new Font("Dialog", Font.BOLD, 18));
+		comp.setBackground(Color.BLACK);
 	}
 	
 	
@@ -127,11 +177,21 @@ public class CreandoAgencia extends JFrame {
 	}
 	
 	
+	public void agregarFilaEnTabla(String alias, String codigo) {
+		Object[] fila = {alias, codigo};
+		datosTabla.addRow(fila);
+		//System.out.println(datosTabla.getValueAt(table.getRowCount() - 1, 0));
+		table.setAlignmentY(CENTER_ALIGNMENT);
+		
+
+	}
+	
+	
+	
 	
 	
 	public void lanzarEventoNuevoEspia(ActionListener escucharClic) {
 		
 		botonAgregar.addActionListener(escucharClic);
 	}
-
 }
