@@ -35,11 +35,15 @@ public class Controlador {
 	}
 
 	private void escucharEventosBienvenida() {
-		((Bienvenida) gui).lanzarEventoNuevaAgencia(new EscucharNuevaAgencia());
+		((Bienvenida) gui).lanzarEventoNuevaAgencia(new OyenteNuevaAgencia());
 	}
 
-	private void escucharEventosCreandoAgencia() {
-		((CreandoAgencia) gui).lanzarEventoNuevoEspia(new EscucharNuevoAgente());
+	private void escucharEventosAlCrearAgencia() {
+		((CreandoAgencia) gui).lanzarEventoNuevoEspia(new OyenteNuevoAgente());
+	}
+	
+	private void escucharEventoIrPantallaComunicaciones() {
+		((Bienvenida) gui).lanzarEventoNuevaAgencia(new OyenteNuevaAgencia());
 	}
 
 	private void crearAgencia() {
@@ -47,10 +51,19 @@ public class Controlador {
 		this.gui.dispose();
 		this.gui = new CreandoAgencia();
 		actualizarGUI();
-		escucharEventosCreandoAgencia();
-		
-		
+		escucharEventosAlCrearAgencia();
+		;
+				
 
+	}
+	
+	private void crearComunicacionesPosibles() {
+		
+		this.gui.dispose();
+		this.gui = new CreandoComunicacion();
+		actualizarGUI();
+		
+		//@TODO: Poner la escucha de eventos
 	}
 
 	private void agregarEspia() {
@@ -73,15 +86,23 @@ public class Controlador {
 		this.gui.repaint();
 	}
 
-	class EscucharNuevaAgencia implements ActionListener {
+	
+	class OyenteNuevaAgencia implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			crearAgencia();
 		}
 	}
 
-	class EscucharNuevoAgente implements ActionListener {
+	class OyenteNuevoAgente implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			agregarEspia();
+		}
+
+	}
+	
+	class OyenteIrAPantallaCrearComunicaciones implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			crearComunicacionesPosibles();
 		}
 
 	}

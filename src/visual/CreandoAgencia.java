@@ -39,6 +39,7 @@ public class CreandoAgencia extends JFrame {
 	private JTable table;
 	private JButton botonAgregar;
 	private DefaultTableModel datosTabla;
+	private JButton btnSiguiente;
 	
 
 
@@ -141,7 +142,7 @@ public class CreandoAgencia extends JFrame {
 		
 		
 		
-		JButton btnSiguiente = new JButton("Siguiente");
+		btnSiguiente = new JButton("Siguiente");
 		darFormatoOscuro(btnSiguiente);
 		panelListadoActualAgentes.add(btnSiguiente, BorderLayout.SOUTH);
 		
@@ -191,7 +192,10 @@ public class CreandoAgencia extends JFrame {
 	
 	
 	public void lanzarEventoNuevoEspia(ActionListener escucharClic) {
-		
 		botonAgregar.addActionListener(escucharClic);
+	}
+	
+	public void lanzarEventoIrAPantallaCrearComunicaciones(ActionListener escucharClic) {
+		btnSiguiente.addActionListener(escucharClic);
 	}
 }

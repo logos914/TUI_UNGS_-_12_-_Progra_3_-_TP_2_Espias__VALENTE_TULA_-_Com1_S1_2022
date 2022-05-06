@@ -39,5 +39,14 @@ public class Espia {
 	public Coordinate obtenerPosicion() {
 		return this.coordenadas;
 	}
-
+	
+	
+	public boolean equals(Espia e) {
+		if (this.alias.equals(e.getAlias()) && this.codigo.equals(e.getCodigo())) {
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
 }
