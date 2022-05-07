@@ -14,8 +14,20 @@ public class Espia {
 		this.codigo = codigo;
 	}
 	
+	public Espia(String alias, String codigo, Coordinate coordenadas) {
+		this.alias = alias;
+		this.codigo = codigo;
+		this.coordenadas = coordenadas;
+	}
 	
-	
+	public Coordinate getCoordenadas() {
+		return coordenadas;
+	}
+
+	public void setCoordenadas(Coordinate coordenadas) {
+		this.coordenadas = coordenadas;
+	}
+
 	public String getAlias() {
 		return alias;
 	}

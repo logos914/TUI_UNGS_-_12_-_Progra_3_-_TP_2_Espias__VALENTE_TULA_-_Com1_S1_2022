@@ -3,10 +3,15 @@ package controlador;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
+import org.openstreetmap.gui.jmapviewer.Coordinate;
+
+import grafo.Grafo;
 import modelo.Agencia;
 import modelo.Espia;
 import visual.Bienvenida;
@@ -16,6 +21,8 @@ import visual.CreandoComunicacion;
 public class Controlador {
 	private Agencia agencia;
 	private JFrame gui;
+	private Grafo<Espia> espias;
+	private int espiasConPosicion = 0;
 
 	public Controlador() {
 		EventQueue.invokeLater(new Runnable() {
@@ -25,13 +32,12 @@ public class Controlador {
 					gui = new Bienvenida();
 					actualizarGUI();
 					escucharEventosBienvenida();
-
 				} catch (Exception e) {
 					e.printStackTrace();
-
 				}
 			}
 		});
+		
 	}
 
 	private void escucharEventosBienvenida() {
@@ -43,16 +49,26 @@ public class Controlador {
 	}
 	
 	private void escucharEventoIrPantallaComunicaciones() {
-		((Bienvenida) gui).lanzarEventoNuevaAgencia(new OyenteNuevaAgencia());
+		((CreandoAgencia) gui).lanzarEventoIrAPantallaCrearComunicaciones(new OyenteIrAPantallaCrearComunicaciones());
 	}
 
+	private void escucharAgregarMarcador() {
+		((CreandoComunicacion) gui).lanzarEventoClicParaAgregarMarcador(new OyenteClicEnMapaParaUbicarEspia());
+	}
+
+	
+	
+	
+	
 	private void crearAgencia() {
 
 		this.gui.dispose();
 		this.gui = new CreandoAgencia();
 		actualizarGUI();
 		escucharEventosAlCrearAgencia();
-		;
+		escucharEventoIrPantallaComunicaciones();
+		
+		
 				
 
 	}
@@ -62,8 +78,10 @@ public class Controlador {
 		this.gui.dispose();
 		this.gui = new CreandoComunicacion();
 		actualizarGUI();
+		escucharAgregarMarcador();
 		
-		//@TODO: Poner la escucha de eventos
+		
+		
 	}
 
 	private void agregarEspia() {
@@ -80,12 +98,22 @@ public class Controlador {
 
 	}
 
+	
+	
+	
+	
+	
 	private void actualizarGUI() {
 		this.gui.setVisible(true);
 		this.gui.revalidate();
 		this.gui.repaint();
 	}
 
+	
+	
+	
+	
+	
 	
 	class OyenteNuevaAgencia implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
@@ -104,7 +132,53 @@ public class Controlador {
 		public void actionPerformed(ActionEvent e) {
 			crearComunicacionesPosibles();
 		}
+	}
+		
+		
+		
+	class OyenteClicEnMapaParaUbicarEspia implements MouseListener {
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			
+			
+			if (espiasConPosicion < agencia.cantidadDeEspias()) {
+				Coordinate coordenada = ((CreandoComunicacion) gui).obtenerCoordenadaDePosicionPunteroMouse(e.getPoint());
+				agencia.ubicarEspia(espiasConPosicion,coordenada);
+				((CreandoComunicacion) gui).CrearMarcador(agencia.obtenerEspia(espiasConPosicion).getCodigo() ,coordenada);
+				espiasConPosicion++;
+				System.out.print(coordenada);
+			}
+			
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
+	
 
 	}
 
-}
+

@@ -9,7 +9,16 @@ import javax.swing.border.EmptyBorder;
 
 import org.openstreetmap.gui.jmapviewer.Coordinate;
 import org.openstreetmap.gui.jmapviewer.JMapViewer;
+import org.openstreetmap.gui.jmapviewer.MapMarkerCircle;
+import org.openstreetmap.gui.jmapviewer.MapMarkerDot;
+import org.openstreetmap.gui.jmapviewer.interfaces.MapMarker;
+
 import java.awt.GridLayout;
+import java.awt.Point;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 
 public class CreandoComunicacion extends JFrame {
@@ -38,6 +47,8 @@ public class CreandoComunicacion extends JFrame {
 		panelMapa.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		mapa = new JMapViewer();
+	
+		
 		panelMapa.add(mapa);
 		
 		Coordinate coordenadaInicial= new Coordinate(-34.5331,-58.7007);
@@ -56,7 +67,21 @@ public class CreandoComunicacion extends JFrame {
 		
 	}
 	
+
+	public Coordinate obtenerCoordenadaDePosicionPunteroMouse(Point punto) {
+
+		return (Coordinate) mapa.getPosition(punto);
+		
+	}
+
+	public void CrearMarcador(String codigo, Coordinate coord) {
+		
+		mapa.addMapMarker(new MapMarkerDot(codigo, coord));
+	}
 	
-	
+	public void lanzarEventoClicParaAgregarMarcador(MouseListener escucharClic) {
+		mapa.addMouseListener(escucharClic);
+		
+	}
 
 }

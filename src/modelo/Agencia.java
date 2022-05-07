@@ -2,34 +2,36 @@ package modelo;
 
 import java.util.LinkedList;
 
+import org.openstreetmap.gui.jmapviewer.Coordinate;
+
 public class Agencia {
 	
-	private LinkedList<Espia> EspiasDesplegados;
+	private LinkedList<Espia> espiasDesplegados;
 	
 	public Agencia() {
-		this.EspiasDesplegados = new LinkedList<Espia>();
+		this.espiasDesplegados = new LinkedList<Espia>();
 	}
 	
 	
 	public void reclutarEspia(Espia espia) {
-		this.EspiasDesplegados.add(espia);
+		this.espiasDesplegados.add(espia);
 	}
 	
 	
 	public void licenciarEspia(Espia espia) {
-		this.EspiasDesplegados.remove(espia);
+		this.espiasDesplegados.remove(espia);
 	}
 	
 	public int obtenerIndiceDeEspia(Espia espia) {
-		return this.EspiasDesplegados.indexOf(espia);
+		return this.espiasDesplegados.indexOf(espia);
 	}
 	
 	public int cantidadDeEspias() {
-		return this.EspiasDesplegados.size();
+		return this.espiasDesplegados.size();
 	}
 	
 	public Espia obtenerEspia(int indice) {
-		return this.EspiasDesplegados.get(indice);
+		return this.espiasDesplegados.get(indice);
 	}
 	
 	public Espia obtenerEspia(String codigo) {
@@ -44,12 +46,13 @@ public class Agencia {
 		return EspiaObtenido;
 	}
 		
-		
 	
-	
+	public void ubicarEspia(int indice, Coordinate coordenadas) {
+		this.espiasDesplegados.get(indice).setCoordenadas(coordenadas);
+	}
 	
 	private Espia buscarCodigo(String codigo) {
-		for (Espia e : this.EspiasDesplegados) {
+		for (Espia e : this.espiasDesplegados) {
 			if (e.getCodigo().equals(codigo)) {
 				return e;
 			}
@@ -57,6 +60,34 @@ public class Agencia {
 		return null;
 		
 	}
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
-}
+
