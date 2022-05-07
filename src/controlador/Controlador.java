@@ -17,6 +17,7 @@ import modelo.Espia;
 import visual.Bienvenida;
 import visual.CreandoAgencia;
 import visual.CreandoComunicacion;
+import visual.UbicandoEspias;
 
 public class Controlador {
 	private Agencia agencia;
@@ -40,6 +41,11 @@ public class Controlador {
 		
 	}
 
+	
+	
+	
+	
+	// Aquí se activan se activan los eventos en las diferentes GUI
 	private void escucharEventosBienvenida() {
 		((Bienvenida) gui).lanzarEventoNuevaAgencia(new OyenteNuevaAgencia());
 	}
@@ -53,14 +59,16 @@ public class Controlador {
 	}
 
 	private void escucharAgregarMarcador() {
-		((CreandoComunicacion) gui).lanzarEventoClicParaAgregarMarcador(new OyenteClicEnMapaParaUbicarEspia());
+		((UbicandoEspias) gui).lanzarEventoClicParaAgregarMarcador(new OyenteClicEnMapaParaUbicarEspia());
 	}
 
 	
 	
 	
 	
-	private void crearAgencia() {
+	// Aquí están las operaciones del controlador respecto a cambiar de ventana
+	
+	private void irHaciaCrearAgencia() {
 
 		this.gui.dispose();
 		this.gui = new CreandoAgencia();
@@ -68,21 +76,28 @@ public class Controlador {
 		escucharEventosAlCrearAgencia();
 		escucharEventoIrPantallaComunicaciones();
 		
-		
-				
-
 	}
 	
-	private void crearComunicacionesPosibles() {
+	private void irHaciaUbicarEspiasEnMapa() {
 		
 		this.gui.dispose();
-		this.gui = new CreandoComunicacion();
+		this.gui = new UbicandoEspias();
 		actualizarGUI();
 		escucharAgregarMarcador();
 		
-		
-		
 	}
+	
+	private void irHaciaCrearComunicacionesEntreEspias() {
+		this.gui.dispose();
+		this.gui = new CreandoComunicacion();
+		actualizarGUI();
+	}
+	
+	
+	
+	
+	// Aquí están las operaciones del controlador
+	// relacionadas con el modelo y la gui mostrada en pantalla
 
 	private void agregarEspia() {
 
@@ -99,6 +114,21 @@ public class Controlador {
 	}
 
 	
+	private void colocarCoordenadasEnEspia(MouseEvent e) {
+		
+		if (espiasConPosicion < agencia.cantidadDeEspias()) {
+			Coordinate coordenada = ((UbicandoEspias) gui).obtenerCoordenadaDePosicionPunteroMouse(e.getPoint());
+			agencia.ubicarEspia(espiasConPosicion,coordenada);
+			((UbicandoEspias) gui).CrearMarcador(agencia.obtenerEspia(espiasConPosicion).getCodigo() ,coordenada);
+			espiasConPosicion++;
+			System.out.print(coordenada);
+		}
+		
+		if (espiasConPosicion == agencia.cantidadDeEspias() ) {
+			irHaciaCrearComunicacionesEntreEspias();
+		}
+		
+	}
 	
 	
 	
@@ -113,11 +143,11 @@ public class Controlador {
 	
 	
 	
-	
+	// Listado de Oyentes de eventos del controlador
 	
 	class OyenteNuevaAgencia implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			crearAgencia();
+			irHaciaCrearAgencia();
 		}
 	}
 
@@ -130,7 +160,7 @@ public class Controlador {
 	
 	class OyenteIrAPantallaCrearComunicaciones implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			crearComunicacionesPosibles();
+			irHaciaUbicarEspiasEnMapa();
 		}
 	}
 		
@@ -140,40 +170,23 @@ public class Controlador {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			
-			
-			if (espiasConPosicion < agencia.cantidadDeEspias()) {
-				Coordinate coordenada = ((CreandoComunicacion) gui).obtenerCoordenadaDePosicionPunteroMouse(e.getPoint());
-				agencia.ubicarEspia(espiasConPosicion,coordenada);
-				((CreandoComunicacion) gui).CrearMarcador(agencia.obtenerEspia(espiasConPosicion).getCodigo() ,coordenada);
-				espiasConPosicion++;
-				System.out.print(coordenada);
-			}
-			
+			colocarCoordenadasEnEspia(e);
 		}
-
+	
 		@Override
 		public void mousePressed(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
 		}
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
 		}
 
 		@Override
 		public void mouseEntered(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
 		}
 
 		@Override
 		public void mouseExited(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
 		}
 		
 	}

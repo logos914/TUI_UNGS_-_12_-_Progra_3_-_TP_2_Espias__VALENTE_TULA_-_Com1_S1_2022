@@ -19,6 +19,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import javax.swing.JLabel;
+import javax.swing.JComboBox;
+import java.awt.FlowLayout;
+import java.awt.Component;
+import javax.swing.Box;
+import javax.swing.JSlider;
 
 
 public class CreandoComunicacion extends JFrame {
@@ -26,6 +32,11 @@ public class CreandoComunicacion extends JFrame {
 	private JPanel contentPane;
 	private JMapViewer mapa;
 	private JFrame frame;
+	private JLabel lblEspiaOrigen;
+	private JComboBox comboBoxEspiaOrigen;
+	private JLabel lblEspiaProba;
+	private Component horizontalStrut;
+	private JSlider slider;
 
 	
 	/**
@@ -39,8 +50,35 @@ public class CreandoComunicacion extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
+		JPanel panelComunicacion = new JPanel();
+		contentPane.add(panelComunicacion, BorderLayout.NORTH);
+		panelComunicacion.setLayout(new BorderLayout(0, 0));
+		
 		JPanel panel = new JPanel();
-		contentPane.add(panel, BorderLayout.SOUTH);
+		panelComunicacion.add(panel, BorderLayout.NORTH);
+		
+		lblEspiaOrigen = new JLabel("Espía de origen:");
+		panel.add(lblEspiaOrigen);
+		
+		comboBoxEspiaOrigen = new JComboBox();
+		panel.add(comboBoxEspiaOrigen);
+		
+		horizontalStrut = Box.createHorizontalStrut(20);
+		panel.add(horizontalStrut);
+		
+		lblEspiaProba = new JLabel("Probabilidad de ser descubierto:");
+		panel.add(lblEspiaProba);
+		
+		slider = new JSlider();
+		panel.add(slider);
+		slider.setMinorTickSpacing(10);
+		slider.setPaintTicks(true);
+		
+		JPanel panel_1 = new JPanel();
+		panelComunicacion.add(panel_1, BorderLayout.SOUTH);
+		
+		JLabel lblseleccioneDestino = new JLabel("Clic en el espía de destino:");
+		panel_1.add(lblseleccioneDestino);
 		
 		JPanel panelMapa = new JPanel();
 		contentPane.add(panelMapa, BorderLayout.CENTER);
@@ -83,5 +121,4 @@ public class CreandoComunicacion extends JFrame {
 		mapa.addMouseListener(escucharClic);
 		
 	}
-
 }
