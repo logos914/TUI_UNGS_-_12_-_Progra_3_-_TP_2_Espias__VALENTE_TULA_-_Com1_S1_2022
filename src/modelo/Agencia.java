@@ -34,6 +34,10 @@ public class Agencia {
 		return this.espiasDesplegados.get(indice);
 	}
 	
+	public LinkedList<Espia> obtenerTodosLosEspias() {
+		return this.espiasDesplegados;
+	}
+ 	
 	public Espia obtenerEspia(String codigo) {
 		
 		Espia EspiaObtenido = this.buscarCodigo(codigo);
