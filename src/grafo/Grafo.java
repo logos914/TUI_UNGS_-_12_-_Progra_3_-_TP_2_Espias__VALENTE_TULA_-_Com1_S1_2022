@@ -27,9 +27,25 @@ public class Grafo<T1> {
 	
 	public void agregarArista(Arista<T1> arista)
 	{
-		//if (verificarVertice(arista.getA().es))
+		this.verificarVerticesDeArista(arista);
+		
+		if (this.existeArista(arista)) {
+			throw new IllegalArgumentException("Esta arista ya existe, y no puede agregarse al grafo: \n" + arista.toString());
+		}
+			
 		arista.getA().agregarVecino(arista.getB(), arista.getPeso());
 		arista.getB().agregarVecino(arista.getA(), arista.getPeso());
+	}
+	
+	
+	public void verificarVerticesDeArista(Arista<T1> arista) {
+		if (!verificarVertice(arista.getA())) {
+			throw new IllegalArgumentException("Este nodo, no forma parte de este gráfo.\n Nodo: " + arista.getA().toString());
+		}
+		
+		if (!verificarVertice(arista.getB())) {
+			throw new IllegalArgumentException("Este nodo, no forma parte de este gráfo.\n Nodo: " + arista.getB().toString());
+		}
 	}
 	
 	
@@ -41,24 +57,29 @@ public class Grafo<T1> {
 	// Informa si existe la arista especificada
 	public boolean existeArista(Arista<T1> arista)
 	{
-		return true;
+		if (arista.getA().esVecino(arista.getB()) && arista.getB().esVecino(arista.getA())) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	// Cantidad de vertices
 	public int tamano()
 	{
-		return 0;
+		return this.vertices.size();
 	}
 	
 	// Vecinos de un vertice
-	public Set<Integer> vecinos(int i)
+	public ArrayList<Distancia<T1>> vecinos(Nodo<T1> nodo)
 	{
+	
+		if (this.verificarVertice(nodo)) {
+			return nodo.obtenerTodosLosVecinos();
+		} else {
+			throw new IllegalArgumentException("Este nodo, no forma parte de este gráfo.\n Nodo: " + nodo.toString());
+		}
 		
-		
-		Set<Integer> ret = new HashSet<Integer>();
-		
-		
-		return ret;		
 	}
 	
 	// Verifica que sea un vertice valido
