@@ -9,8 +9,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JFrame;
-import javax.swing.JTextField;
-
 import org.openstreetmap.gui.jmapviewer.Coordinate;
 import org.openstreetmap.gui.jmapviewer.MapMarkerDot;
 
@@ -95,8 +93,19 @@ public class Controlador {
 	private void irHaciaCrearComunicacionesEntreEspias() {
 		this.gui.dispose();
 		this.gui = new CreandoComunicacion();
+		
 		((CreandoComunicacion) gui).colocarMarcadorDeLosEspias(this.agencia.obtenerTodosLosEspias());
 		((CreandoComunicacion) gui).lanzarEventoClic(new OyenteClicEnMapaParaSeleccionarEspia());
+		((CreandoComunicacion) gui).completarListadoDeEspias(this.agencia.obtenerTodosLosEspias());
+		
+		espias = new Grafo<Espia>();
+		
+		for (Espia e : this.agencia.obtenerTodosLosEspias()) {
+			espias.agregarVertice(e);
+		}
+		
+		
+		
 		actualizarGUI();
 	}
 	
@@ -223,6 +232,11 @@ public class Controlador {
 		        }
 			   if (marcadorPresionado != null) {
 				   System.out.println(marcadorPresionado.getName());
+				   
+				   Espia espiaOrigen = agencia.obtenerEspia(((CreandoComunicacion)gui).obtenerEspiaOrigen());
+				   Espia espiaDestino = agencia.obtenerEspia(marcadorPresionado.getName());
+				   
+				   ((CreandoComunicacion)gui).dibujarAristaEnMapa( espiaOrigen.obtenerPosicion(), espiaDestino.obtenerPosicion()); 
 	   
 			   }
 			   

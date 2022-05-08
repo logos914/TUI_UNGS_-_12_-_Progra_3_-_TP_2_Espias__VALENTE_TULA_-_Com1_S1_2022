@@ -11,6 +11,7 @@ import org.openstreetmap.gui.jmapviewer.Coordinate;
 import org.openstreetmap.gui.jmapviewer.JMapViewer;
 import org.openstreetmap.gui.jmapviewer.MapMarkerCircle;
 import org.openstreetmap.gui.jmapviewer.MapMarkerDot;
+import org.openstreetmap.gui.jmapviewer.MapPolygonImpl;
 import org.openstreetmap.gui.jmapviewer.interfaces.MapMarker;
 
 import modelo.Espia;
@@ -22,7 +23,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
@@ -30,6 +33,7 @@ import java.awt.FlowLayout;
 import java.awt.Component;
 import javax.swing.Box;
 import javax.swing.JSlider;
+import javax.swing.DefaultComboBoxModel;
 
 
 public class CreandoComunicacion extends JFrame {
@@ -39,6 +43,7 @@ public class CreandoComunicacion extends JFrame {
 	private JFrame frame;
 	private JLabel lblEspiaOrigen;
 	private JComboBox comboBoxEspiaOrigen;
+	private DefaultComboBoxModel modeloEspiaOrigen;
 	private JLabel lblEspiaProba;
 	private Component horizontalStrut;
 	private JSlider slider;
@@ -67,7 +72,9 @@ public class CreandoComunicacion extends JFrame {
 		lblEspiaOrigen = new JLabel("Espía de origen:");
 		panel.add(lblEspiaOrigen);
 		
+		modeloEspiaOrigen = new DefaultComboBoxModel();
 		comboBoxEspiaOrigen = new JComboBox();
+		comboBoxEspiaOrigen.setModel(modeloEspiaOrigen);
 		panel.add(comboBoxEspiaOrigen);
 		
 		horizontalStrut = Box.createHorizontalStrut(20);
@@ -100,7 +107,7 @@ public class CreandoComunicacion extends JFrame {
 		
 		
 		mapa.setLayout(null);
-		mapa.setDisplayPosition(coordenadaInicial,14);
+		mapa.setDisplayPosition(coordenadaInicial,16);
 		
 		
 		
@@ -124,12 +131,14 @@ public class CreandoComunicacion extends JFrame {
 		}
 	}
 	
-	public void lanzarEventoClicSobreMarcador(MouseListener escucharClic) {
+	public void completarListadoDeEspias(LinkedList<Espia> espias) {
 		
-		for (MapMarkerDot e : marcadores) {
-			//@TODO: ver como implementar
+		for (Espia e : espias ) {
+			comboBoxEspiaOrigen.addItem(e.getCodigo());
+			//modeloEspiaOrigen.addAll(espias);
 		}
- 	}
+		
+	}
 
 	public Point obtenerPosicion(Double latitud, Double longitud) {
 
@@ -153,4 +162,21 @@ public class CreandoComunicacion extends JFrame {
 	public ArrayList<MapMarkerDot> obtenerMarcadores() {
 		 return this.marcadores;
 	}
+	
+	public String obtenerEspiaOrigen() {
+		return (String) comboBoxEspiaOrigen.getSelectedItem();
+	}
+	
+	public float obtenerProbabilidadIntercepcion() {
+		float valorSlider = (float) slider.getValue();
+		return (float) (valorSlider / 100.0);
+	}
+	
+	public void dibujarAristaEnMapa(Coordinate desde, Coordinate hasta) {
+		
+		List<Coordinate> ruta = new ArrayList<Coordinate>(Arrays.asList(desde, hasta, hasta));
+		MapPolygonImpl trazo = new MapPolygonImpl(ruta);
+		mapa.addMapPolygon(trazo);
+	}
+	
 }

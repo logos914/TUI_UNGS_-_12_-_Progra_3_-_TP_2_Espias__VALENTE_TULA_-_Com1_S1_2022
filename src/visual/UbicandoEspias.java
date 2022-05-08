@@ -11,6 +11,7 @@ import org.openstreetmap.gui.jmapviewer.Coordinate;
 import org.openstreetmap.gui.jmapviewer.JMapViewer;
 import org.openstreetmap.gui.jmapviewer.MapMarkerCircle;
 import org.openstreetmap.gui.jmapviewer.MapMarkerDot;
+import org.openstreetmap.gui.jmapviewer.Style;
 import org.openstreetmap.gui.jmapviewer.interfaces.MapMarker;
 
 import java.awt.GridLayout;
@@ -55,7 +56,8 @@ public class UbicandoEspias extends JFrame {
 		
 		
 		mapa.setLayout(null);
-		mapa.setDisplayPosition(coordenadaInicial,14);
+		mapa.setDisplayPosition(coordenadaInicial,16);
+		
 		
 		
 		
