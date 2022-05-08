@@ -61,4 +61,9 @@ public class Espia {
 		}
 		
 	}
+	
+	
+	public String toString() {
+		return "Agente: " + this.alias + " | Código: " + this.codigo + "\nUbicado en:" + this.coordenadas.toString();		
+	}
 }
