@@ -46,6 +46,13 @@ public class Arista<T1> {
 	}
 	
 	
+	public String toString() {
+		String cadena = "Nodo A:" + this.getA().toString() + "\n";
+		cadena += "Nodo B:" + this.getB().toString() + "\n";
+		cadena += "Peso o Distancia: " + this.getPeso();
+		return cadena;
+	}
+	
 	
 	
 	
