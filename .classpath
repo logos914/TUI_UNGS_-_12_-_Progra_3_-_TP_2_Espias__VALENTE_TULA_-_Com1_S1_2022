@@ -19,5 +19,6 @@
 	<classpathentry kind="lib" path="/app/eclipse/plugins/com.ibm.icu_67.1.0.v20200706-1749.jar" sourcepath="/app/eclipse/plugins/com.ibm.icu_67.1.0.v20200706-1749.jar"/>
 	<classpathentry kind="lib" path="/app/eclipse/plugins/org.eclipse.ui.forms_3.11.300.v20211022-1451.jar" sourcepath="/app/eclipse/plugins/org.eclipse.ui.forms_3.11.300.v20211022-1451.jar"/>
 	<classpathentry kind="lib" path="src/visual/mapa/JMapViewer.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
