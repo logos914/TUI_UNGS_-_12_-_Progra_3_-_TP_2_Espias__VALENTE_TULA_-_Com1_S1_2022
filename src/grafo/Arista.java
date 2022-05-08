@@ -54,6 +54,21 @@ public class Arista<T1> {
 	}
 	
 	
+	public boolean equals(Arista<T1> e) {
+		
+		if (this.getA().equals(e.getA()) && this.getB().equals(e.getB())) {
+			return true;
+		}
+		
+		if (this.getA().equals(e.getB()) && this.getB().equals(e.getA())) {
+			return true;
+		}
+		
+		
+		return false;
+		
+	}
+	
 	
 	
 	
