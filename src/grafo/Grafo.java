@@ -29,14 +29,22 @@ public class Grafo<T1> {
 	{
 		this.verificarVerticesDeArista(arista);
 		
-		if (this.existeArista(arista)) {
-			throw new IllegalArgumentException("Esta arista ya existe, y no puede agregarse al grafo: \n" + arista.toString());
-		}
+		this.verificarExisteArista(arista);
+		
+		this.verificarQueLosNodosNoSeanElMismo(arista);
 			
 		arista.getA().agregarVecino(arista.getB(), arista.getPeso());
 		arista.getB().agregarVecino(arista.getA(), arista.getPeso());
 	}
-	
+
+	private void verificarQueLosNodosNoSeanElMismo(Arista<T1> arista) {
+		if (arista.getA().equals(arista.getB())) {
+			throw new IllegalArgumentException("Un nodo no puede ser vecino de sí mismo\n Arista: " + arista.toString());
+
+		}
+	}
+
+
 	
 	public void verificarVerticesDeArista(Arista<T1> arista) {
 		if (!verificarVertice(arista.getA())) {
@@ -48,12 +56,22 @@ public class Grafo<T1> {
 		}
 	}
 	
+
+	private void verificarExisteArista(Arista<T1> arista) {
+		if (this.existeArista(arista)) {
+			throw new IllegalArgumentException("Esta arista ya existe, y no puede agregarse al grafo: \n" + arista.toString());
+		}
+	}
 	
 	public void eliminarArista(Arista<T1> arista)
 	{
 		
 	}
 
+	
+	
+	
+	
 	// Informa si existe la arista especificada
 	public boolean existeArista(Arista<T1> arista)
 	{
