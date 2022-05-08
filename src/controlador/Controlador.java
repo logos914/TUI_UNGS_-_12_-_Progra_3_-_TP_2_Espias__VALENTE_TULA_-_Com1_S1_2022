@@ -235,8 +235,10 @@ public class Controlador {
 				   
 				   Espia espiaOrigen = agencia.obtenerEspia(((CreandoComunicacion)gui).obtenerEspiaOrigen());
 				   Espia espiaDestino = agencia.obtenerEspia(marcadorPresionado.getName());
+				   Float peso = ((CreandoComunicacion)gui).obtenerProbabilidadIntercepcion();
 				   
-				   ((CreandoComunicacion)gui).dibujarAristaEnMapa( espiaOrigen.obtenerPosicion(), espiaDestino.obtenerPosicion()); 
+				   
+				   ((CreandoComunicacion)gui).dibujarAristaEnMapa( espiaOrigen.obtenerPosicion(), espiaDestino.obtenerPosicion(), peso.toString()); 
 	   
 			   }
 			   

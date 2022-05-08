@@ -1,6 +1,7 @@
 package visual;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -30,6 +31,7 @@ import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Component;
 import javax.swing.Box;
 import javax.swing.JSlider;
@@ -172,11 +174,15 @@ public class CreandoComunicacion extends JFrame {
 		return (float) (valorSlider / 100.0);
 	}
 	
-	public void dibujarAristaEnMapa(Coordinate desde, Coordinate hasta) {
+	public void dibujarAristaEnMapa(Coordinate desde, Coordinate hasta, String peso) {
 		
 		List<Coordinate> ruta = new ArrayList<Coordinate>(Arrays.asList(desde, hasta, hasta));
 		MapPolygonImpl trazo = new MapPolygonImpl(ruta);
 		mapa.addMapPolygon(trazo);
+		
+		trazo.setColor(Color.GRAY);
+		trazo.setName(peso);
+		
 	}
 	
 }
