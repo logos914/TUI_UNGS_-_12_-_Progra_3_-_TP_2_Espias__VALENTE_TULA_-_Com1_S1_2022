@@ -11,6 +11,7 @@ public class Nodo<T1> {
 	
 	public Nodo(T1 informacion) {
 		this.informacion = informacion;
+		this.vecinos = new ArrayList<Distancia<T1>>();
 	}
 
 
@@ -60,14 +61,18 @@ public class Nodo<T1> {
 	
 	public boolean esVecino(Nodo<T1> nodoVecino) {
 		
-		Distancia<T1> encontrado = null;
-		
-		encontrado = this.obtenerDistancia(nodoVecino);
-		
-		if (encontrado == null) {
+		if (this.vecinos.size() == 0) {
 			return false;
 		} else {
-			return true;
+			Distancia<T1> encontrado = null;
+			
+			encontrado = this.obtenerDistancia(nodoVecino);
+			
+			if (encontrado == null) {
+				return false;
+			} else {
+				return true;
+			}
 		}
 		
 	}
