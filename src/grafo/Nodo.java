@@ -28,6 +28,7 @@ public class Nodo<T1> {
 	}
 	
 	public void agregarVecino(Nodo<T1> vecino, Float peso) {
+		this.verificarRequisitoParaSerVecino(vecino);
 		Distancia<T1> distancia = new Distancia<T1>(vecino, peso);
 		this.vecinos.add(distancia);
 	}
@@ -71,13 +72,68 @@ public class Nodo<T1> {
 		
 	}
 	
+	public void verificarRequisitoSerVecino(Nodo<T1> nodoVecino) {
+		if (!this.esVecino(nodoVecino)) {
+			throw new IllegalArgumentException("No se puede realizar "
+					+ "la operación porque el nodo pasado por parámetro "
+					+ "no es vecino de este nodo. "
+					+ "Nodo Actual: " + this.toString() + "\n"
+					+ "Nodo No-Vecino: " + nodoVecino.toString());
+		}
+	}
+	
+	public void verificarRequisitoParaSerVecino(Nodo<T1> nodoVecino) {
+		if (this.esVecino(nodoVecino)) {
+			throw new IllegalArgumentException("No se puede realizar "
+					+ "la operación porque el nodo pasado por parámetro "
+					+ "YA ES vecino de este nodo. "
+					+ "Nodo Actual: " + this.toString() + "\n"
+					+ "Nodo Vecino: " + nodoVecino.toString());
+		}
+		
+		if (this.equals(nodoVecino)) {
+			throw new IllegalArgumentException("No se puede realizar "
+					+ "la operación porque el nodo pasado por parámetro "
+					+ "ES EL MISMO nodo. "
+					+ "Nodo Actual: " + this.toString() + "\n"
+					+ "Nodo Vecino: " + nodoVecino.toString());
+		}
+	}
+	
+	
+	
 	public void eliminarVecino(int indice) {
+		if (indice < 0) {
+			throw new IllegalArgumentException("No se puede eliminar un "
+					+ "vecino cuyo índice en la lista de vecinos "
+					+ "es menor que 0 | Valor indicado: " 
+					+ indice);
+		}
+		
+		if (indice > this.vecinos.size()) {
+			throw new IllegalArgumentException("No se puede eliminar un "
+					+ "vecino cuyo índice excede la cantidad de vecinos "
+					+ "Valor indicado: " 
+					+ indice);
+		}
+		
 		this.vecinos.remove(indice);
 	}
 	
-	public void eliminarVecino(T1 informacion) {
-		this.vecinos.remove(informacion);
+
+	public void eliminarVecino(Nodo<T1> nodoVecino) {		
+		this.eliminarVecino(this.indiceDeVecino(nodoVecino));
 	}
+	
+	
+	public int indiceDeVecino(Nodo<T1> nodoVecino) {
+		
+		this.verificarRequisitoSerVecino(nodoVecino);
+		Distancia<T1> distancia = this.obtenerDistancia(nodoVecino);
+		return this.vecinos.indexOf(distancia);
+		
+	}
+	
 	
 	
 	

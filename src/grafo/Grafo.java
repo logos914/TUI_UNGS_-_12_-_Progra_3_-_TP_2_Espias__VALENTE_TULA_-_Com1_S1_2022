@@ -65,7 +65,9 @@ public class Grafo<T1> {
 	
 	public void eliminarArista(Arista<T1> arista)
 	{
-		
+		if (this.existeArista(arista)) {
+			
+		}
 	}
 
 	

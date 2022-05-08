@@ -25,5 +25,12 @@ public class Distancia<T1>{
 		this.peso = peso;
 	}
 	
+	public boolean equals(Distancia<T1> d) {
+		if (this.getDestino().equals(d.getDestino()) && this.getPeso().equals(d.getPeso())) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
 }
