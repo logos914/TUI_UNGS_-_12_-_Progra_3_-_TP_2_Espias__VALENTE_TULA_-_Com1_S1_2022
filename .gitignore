@@ -58,3 +58,4 @@ pom.xml.tag
 *.class
 .classpath
 .settings/org.eclipse.jdt.core.prefs
+.classpath
