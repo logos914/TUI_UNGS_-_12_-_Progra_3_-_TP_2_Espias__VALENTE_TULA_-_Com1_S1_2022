@@ -13,12 +13,17 @@ import org.openstreetmap.gui.jmapviewer.MapMarkerCircle;
 import org.openstreetmap.gui.jmapviewer.MapMarkerDot;
 import org.openstreetmap.gui.jmapviewer.interfaces.MapMarker;
 
+import modelo.Espia;
+
 import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.LinkedList;
+
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import java.awt.FlowLayout;
@@ -37,6 +42,8 @@ public class CreandoComunicacion extends JFrame {
 	private JLabel lblEspiaProba;
 	private Component horizontalStrut;
 	private JSlider slider;
+	private ArrayList<MapMarkerDot> marcadores;
+	
 
 	
 	/**
@@ -105,11 +112,32 @@ public class CreandoComunicacion extends JFrame {
 		
 	}
 	
-
-	public Coordinate obtenerCoordenadaDePosicionPunteroMouse(Point punto) {
-
-		return (Coordinate) mapa.getPosition(punto);
+	public void colocarMarcadorDeLosEspias(LinkedList<Espia> espias) {
 		
+		marcadores = new ArrayList<MapMarkerDot>();
+		
+		for (Espia e : espias) {
+			MapMarkerDot marcador = new MapMarkerDot(e.getCodigo(), e.getCoordenadas());
+			marcadores.add(marcador);
+			mapa.addMapMarker(marcador);
+			
+		}
+	}
+	
+	public void lanzarEventoClicSobreMarcador(MouseListener escucharClic) {
+		
+		for (MapMarkerDot e : marcadores) {
+			//@TODO: ver como implementar
+		}
+ 	}
+
+	public Point obtenerPosicion(Double latitud, Double longitud) {
+
+		return mapa.getMapPosition(latitud, longitud, true);
+	}
+	
+	public int obtenerRadio(MapMarkerDot marcador, Point punto) {
+		return mapa.getRadius(marcador, punto);
 	}
 
 	public void CrearMarcador(String codigo, Coordinate coord) {
@@ -117,8 +145,12 @@ public class CreandoComunicacion extends JFrame {
 		mapa.addMapMarker(new MapMarkerDot(codigo, coord));
 	}
 	
-	public void lanzarEventoClicParaAgregarMarcador(MouseListener escucharClic) {
+	public void lanzarEventoClic(MouseListener escucharClic) {
 		mapa.addMouseListener(escucharClic);
 		
+	}
+	
+	public ArrayList<MapMarkerDot> obtenerMarcadores() {
+		 return this.marcadores;
 	}
 }

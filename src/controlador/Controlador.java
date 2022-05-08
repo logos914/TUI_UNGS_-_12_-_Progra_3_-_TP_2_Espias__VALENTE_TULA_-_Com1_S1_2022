@@ -1,6 +1,8 @@
 package controlador;
 
 import java.awt.EventQueue;
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -10,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 
 import org.openstreetmap.gui.jmapviewer.Coordinate;
+import org.openstreetmap.gui.jmapviewer.MapMarkerDot;
 
 import grafo.Grafo;
 import modelo.Agencia;
@@ -87,9 +90,13 @@ public class Controlador {
 		
 	}
 	
+	
+	
 	private void irHaciaCrearComunicacionesEntreEspias() {
 		this.gui.dispose();
 		this.gui = new CreandoComunicacion();
+		((CreandoComunicacion) gui).colocarMarcadorDeLosEspias(this.agencia.obtenerTodosLosEspias());
+		((CreandoComunicacion) gui).lanzarEventoClic(new OyenteClicEnMapaParaSeleccionarEspia());
 		actualizarGUI();
 	}
 	
@@ -127,6 +134,8 @@ public class Controlador {
 		if (espiasConPosicion == agencia.cantidadDeEspias() ) {
 			irHaciaCrearComunicacionesEntreEspias();
 		}
+		
+		
 		
 	}
 	
@@ -171,6 +180,53 @@ public class Controlador {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			colocarCoordenadasEnEspia(e);
+		}
+	
+		@Override
+		public void mousePressed(MouseEvent e) {
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+		}
+		
+	}
+	
+	class OyenteClicEnMapaParaSeleccionarEspia implements MouseListener {
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			
+			Point puntoClickeado = e.getPoint();
+			MapMarkerDot marcadorPresionado = null;
+			
+			   for (MapMarkerDot marcador : ((CreandoComunicacion)gui).obtenerMarcadores()) {
+				   
+		            Point puntoDelMarcador = ((CreandoComunicacion)gui).obtenerPosicion(marcador.getLat(), marcador.getLon());
+		            if (puntoDelMarcador != null) {
+		                int radioDelMarcador = ((CreandoComunicacion)gui).obtenerRadio(marcador, puntoDelMarcador);
+		                Rectangle areaDelMarcador = new Rectangle(puntoDelMarcador.x - radioDelMarcador, puntoDelMarcador.y - radioDelMarcador, radioDelMarcador + radioDelMarcador, radioDelMarcador + radioDelMarcador);
+		                if (areaDelMarcador.contains(puntoClickeado)) {
+		                	marcadorPresionado = marcador;
+		                    break;
+		                }
+		            }
+		            
+		        }
+			   if (marcadorPresionado != null) {
+				   System.out.println(marcadorPresionado.getName());
+	   
+			   }
+			   
+			   
 		}
 	
 		@Override
