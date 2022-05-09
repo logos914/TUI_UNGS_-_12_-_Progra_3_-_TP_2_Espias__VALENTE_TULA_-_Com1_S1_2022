@@ -120,14 +120,18 @@ public class Controlador {
 
 		String alias = ((CreandoAgencia) gui).obtenerTxtAlias();
 		String codigo = ((CreandoAgencia) gui).obtenerTxtCodigo();
+		
+		if (!alias.equals("") && !codigo.equals("")) {
+			Espia nuevoEspia = new Espia(alias, codigo);
+			this.agencia.reclutarEspia(nuevoEspia);
 
-		Espia nuevoEspia = new Espia(alias, codigo);
-		this.agencia.reclutarEspia(nuevoEspia);
+			((CreandoAgencia) gui).borrarFormularioEspia();
+			((CreandoAgencia) gui).agregarFilaEnTabla(alias, codigo);
+			this.actualizarGUI();
 
-		((CreandoAgencia) gui).borrarFormularioEspia();
-		((CreandoAgencia) gui).agregarFilaEnTabla(alias, codigo);
-		this.actualizarGUI();
+		}
 
+		
 	}
 
 	
