@@ -165,6 +165,9 @@ public class CreandoComunicacion extends JFrame {
 		}
 	}
 	
+	
+	
+	
 	public void completarListadoDeEspias(LinkedList<Espia> espias) {
 		
 		for (Espia e : espias ) {
@@ -174,45 +177,70 @@ public class CreandoComunicacion extends JFrame {
 		
 	}
 
+	
+	
+	
 	public Point obtenerPosicion(Double latitud, Double longitud) {
 
 		return mapa.getMapPosition(latitud, longitud, true);
 	}
 	
+	
+	
+	
 	public int obtenerRadio(MapMarkerDot marcador, Point punto) {
 		return mapa.getRadius(marcador, punto);
 	}
 
+	
+	
 	public void CrearMarcador(String codigo, Coordinate coord) {
 		
 		mapa.addMapMarker(new MapMarkerDot(codigo, coord));
 	}
+	
+	
 	
 	public void lanzarEventoClic(MouseListener escucharClic) {
 		mapa.addMouseListener(escucharClic);
 		
 	}
 	
+	
+	public void lanzarEventoClicSiguiente(ActionListener accion) {
+		btnGenerar.addActionListener(accion);
+		
+	}
+	
+	
 	public ArrayList<MapMarkerDot> obtenerMarcadores() {
 		 return this.marcadores;
 	}
 	
+	
 	public String obtenerEspiaOrigen() {
 		return (String) comboBoxEspiaOrigen.getSelectedItem();
 	}
+	
+	
 	
 	public float obtenerProbabilidadIntercepcion() {
 		float valorSlider = (float) slider.getValue();
 		return (float) (valorSlider / 100.0);
 	}
 	
-	public void dibujarAristaEnMapa(Coordinate desde, Coordinate hasta, String peso) {
+	public void dibujarAristaEnMapa(Coordinate desde, Coordinate hasta, String peso, boolean esArbol) {
 		
 		List<Coordinate> ruta = new ArrayList<Coordinate>(Arrays.asList(desde, hasta, hasta));
 		MapPolygonImpl trazo = new MapPolygonImpl(ruta);
 		mapa.addMapPolygon(trazo);
 		
-		trazo.setColor(Color.GRAY);
+		if (esArbol) {
+			trazo.setColor(Color.GREEN);
+		} else {
+			trazo.setColor(Color.GRAY);
+		}
+		
 		trazo.setName(peso);
 		
 	}
