@@ -79,7 +79,7 @@ public class CreandoComunicacion extends JFrame {
 		panel.setBackground(Color.DARK_GRAY);
 		panelInstrucciones.add(panel, BorderLayout.NORTH);
 		
-		lblEspiaOrigen = new JLabel("Espí­a de origen:");
+		lblEspiaOrigen = new JLabel("Espia de origen:");
 		lblEspiaOrigen.setForeground(Color.GREEN);
 		panel.add(lblEspiaOrigen);
 		
