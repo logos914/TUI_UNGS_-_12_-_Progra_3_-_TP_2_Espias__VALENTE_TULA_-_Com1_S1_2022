@@ -9,9 +9,16 @@ public class Arista<T1> {
 	
 	public Arista(Nodo<T1> nodoA, Nodo<T1> nodoB, Float peso) {
 		
-		this.a = nodoA;
-		this.b = nodoB;
-		this.peso = peso;
+		if (this.losExtremosSonElMismoVertice(nodoA, nodoB)) {
+			throw new IllegalArgumentException("No se puede crear una arista"
+					+ "cuyos extremos son el mismo vértice");
+		} else {
+			this.a = nodoA;
+			this.b = nodoB;
+			this.peso = peso;
+		}
+		
+		
 		
 	}
 
@@ -69,6 +76,15 @@ public class Arista<T1> {
 		
 	}
 	
+	
+	public boolean losExtremosSonElMismoVertice(Nodo<T1> a, Nodo<T1> b) {
+		
+		if (a.equals(b)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
 	
 	
