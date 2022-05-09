@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import org.openstreetmap.gui.jmapviewer.Coordinate;
 import org.openstreetmap.gui.jmapviewer.MapMarkerDot;
 
+import grafo.BFS;
 import grafo.Grafo;
 import modelo.Agencia;
 import modelo.Espia;
@@ -142,7 +143,7 @@ public class Controlador {
 			agencia.ubicarEspia(espiasConPosicion,coordenada);
 			((UbicandoEspias) gui).CrearMarcador(agencia.obtenerEspia(espiasConPosicion).getCodigo() ,coordenada);
 			espiasConPosicion++;
-			System.out.print(coordenada);
+			System.out.println(coordenada);
 		}
 		
 		if (espiasConPosicion == agencia.cantidadDeEspias() ) {
@@ -171,8 +172,20 @@ public class Controlador {
 			   try {
 				   this.espias.agregarArista(espiaOrigen, espiaDestino, peso);
 				   ((CreandoComunicacion)gui).dibujarAristaEnMapa( espiaOrigen.obtenerPosicion(), espiaDestino.obtenerPosicion(), peso.toString()); 
+
+				   BFS bfs = new BFS(this.espias);
+				   
+				   if (bfs.esConexo()) {
+					   ((CreandoComunicacion)gui).cambiarMensaje("Ya puedes generar la comunicación");
+					   ((CreandoComunicacion)gui).habilitarBotonSiguiente();
+
+				   } else {
+					   ((CreandoComunicacion)gui).cambiarMensaje("Podrás enviar el mensaje a todos los espías, cuando el grafo que forman los nodos sea conexo");
+				   }
+			   
 			   } catch (Exception excepcion) {
-				   System.out.println("No se puede crear esta arista");
+				   System.out.println("No se puede crear esta arista\n" + excepcion);
+				   ((CreandoComunicacion)gui).cambiarMensaje("No se puede crear esta arista");
 			   }
 			   
 			   
