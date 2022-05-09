@@ -36,6 +36,9 @@ import java.awt.Component;
 import javax.swing.Box;
 import javax.swing.JSlider;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.SwingConstants;
+import javax.swing.BoxLayout;
 
 
 public class CreandoComunicacion extends JFrame {
@@ -50,6 +53,9 @@ public class CreandoComunicacion extends JFrame {
 	private Component horizontalStrut;
 	private JSlider slider;
 	private ArrayList<MapMarkerDot> marcadores;
+	private JPanel panelMensajes;
+	private JLabel lblMensajes;
+	private JButton btnGenerar;
 	
 
 	
@@ -64,18 +70,23 @@ public class CreandoComunicacion extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		JPanel panelComunicacion = new JPanel();
-		contentPane.add(panelComunicacion, BorderLayout.NORTH);
-		panelComunicacion.setLayout(new BorderLayout(0, 0));
+		JPanel panelInstrucciones = new JPanel();
+		panelInstrucciones.setBackground(Color.DARK_GRAY);
+		contentPane.add(panelInstrucciones, BorderLayout.NORTH);
+		panelInstrucciones.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel = new JPanel();
-		panelComunicacion.add(panel, BorderLayout.NORTH);
+		panel.setBackground(Color.DARK_GRAY);
+		panelInstrucciones.add(panel, BorderLayout.NORTH);
 		
 		lblEspiaOrigen = new JLabel("Espí­a de origen:");
+		lblEspiaOrigen.setForeground(Color.GREEN);
 		panel.add(lblEspiaOrigen);
 		
 		modeloEspiaOrigen = new DefaultComboBoxModel();
 		comboBoxEspiaOrigen = new JComboBox();
+		comboBoxEspiaOrigen.setBackground(Color.GRAY);
+		comboBoxEspiaOrigen.setForeground(Color.GREEN);
 		comboBoxEspiaOrigen.setModel(modeloEspiaOrigen);
 		panel.add(comboBoxEspiaOrigen);
 		
@@ -83,17 +94,22 @@ public class CreandoComunicacion extends JFrame {
 		panel.add(horizontalStrut);
 		
 		lblEspiaProba = new JLabel("Probabilidad de ser descubierto:");
+		lblEspiaProba.setForeground(Color.GREEN);
 		panel.add(lblEspiaProba);
 		
 		slider = new JSlider();
+		slider.setForeground(Color.GREEN);
+		slider.setBackground(Color.GRAY);
 		panel.add(slider);
 		slider.setMinorTickSpacing(10);
 		slider.setPaintTicks(true);
 		
 		JPanel panel_1 = new JPanel();
-		panelComunicacion.add(panel_1, BorderLayout.SOUTH);
+		panel_1.setBackground(Color.DARK_GRAY);
+		panelInstrucciones.add(panel_1, BorderLayout.SOUTH);
 		
 		JLabel lblseleccioneDestino = new JLabel("Clic en el espía de destino:");
+		lblseleccioneDestino.setForeground(Color.GREEN);
 		panel_1.add(lblseleccioneDestino);
 		
 		JPanel panelMapa = new JPanel();
@@ -109,6 +125,22 @@ public class CreandoComunicacion extends JFrame {
 		
 		
 		mapa.setLayout(null);
+		
+		panelMensajes = new JPanel();
+		panelMensajes.setBackground(Color.DARK_GRAY);
+		contentPane.add(panelMensajes, BorderLayout.SOUTH);
+		panelMensajes.setLayout(new BorderLayout(0, 0));
+		
+		lblMensajes = new JLabel("Podr\u00E1s enviar el mensaje a todos los esp\u00EDas, cuando el grafo que forman los nodos sea conexo");
+		lblMensajes.setHorizontalAlignment(SwingConstants.LEFT);
+		lblMensajes.setForeground(Color.RED);
+		panelMensajes.add(lblMensajes, BorderLayout.WEST);
+		
+		btnGenerar = new JButton("Comunicar");
+		btnGenerar.setEnabled(false);
+		btnGenerar.setBackground(Color.DARK_GRAY);
+		btnGenerar.setForeground(Color.GREEN);
+		panelMensajes.add(btnGenerar, BorderLayout.EAST);
 		mapa.setDisplayPosition(coordenadaInicial,16);
 		
 		
