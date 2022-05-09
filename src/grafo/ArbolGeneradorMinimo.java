@@ -13,6 +13,7 @@ public class ArbolGeneradorMinimo<T1> {
 	public ArbolGeneradorMinimo(Grafo<T1> grafo) {
 		this.grafo = grafo;
 		this.contadorVertices = this.grafo.tamano();
+		this.arbol = new Grafo<T1>();
 		
 	}
 	
@@ -24,11 +25,11 @@ public class ArbolGeneradorMinimo<T1> {
 		
 	
 		
-		Nodo<T1> Vt = this.grafo.obtenerVertice(0);
-		arbol.agregarVertice(Vt);
+		Nodo<T1> Vt = this.grafo.obtenerVertice(0).getInformacion();
+		this.arbol.agregarVertice(Vt);
 		
 		
-		while (this.contadorVertices < this.grafo.tamano()) {
+		while (this.arbol.tamano() != this.grafo.tamano()) {
 			
 			
 			agregarAristasParaVerificar(Vt) ;
@@ -36,8 +37,9 @@ public class ArbolGeneradorMinimo<T1> {
 			
 			Arista<T1> Et = encontrarLaAristaDeMenorPeso();
 			
-			this.arbol.agregarVertice(Et.getB());
-			this.arbol.agregarArista(Vt, Et.getB(), Et.getPeso());
+			Nodo<T1> Ut = new Nodo(Et.getB().getInformacion());
+			this.arbol.agregarVertice(Ut);
+			this.arbol.agregarArista(Vt, Ut, Et.getPeso());
 			this.aristas.remove(Et);
 			
 			Vt = Et.getB();
@@ -70,7 +72,8 @@ public class ArbolGeneradorMinimo<T1> {
 		
 		for (Distancia<T1> i : this.grafo.vecinos(Vt)) {
 			Arista<T1> arista = new Arista(Vt,i.getDestino(),i.getPeso());
-			if (!this.estaAristaYaExiste(null)) {
+			Arista<T1> aristaInvertida = new Arista(i.getDestino(), Vt ,i.getPeso());
+			if (!this.estaAristaYaExiste(arista) && !this.estaAristaYaExiste(aristaInvertida)) {
 				this.aristas.add(arista);
 			}
 		}
