@@ -7,7 +7,7 @@ import java.util.TreeSet;
 
 public class Grafo<T1> {
 	
-	ArrayList<Nodo<T1>> vertices;
+	private ArrayList<Nodo<T1>> vertices;
 	
 	
 	public Grafo() {
@@ -38,6 +38,9 @@ public class Grafo<T1> {
 	}
 
 	private void verificarQueLosNodosNoSeanElMismo(Arista<T1> arista) {
+		
+		
+		
 		if (arista.getA().equals(arista.getB())) {
 			throw new IllegalArgumentException("Un nodo no puede ser vecino de sí mismo\n Arista: " + arista.toString());
 
@@ -119,5 +122,13 @@ public class Grafo<T1> {
 		return  a.equals(b) ? true : false;
 	}
 
+	public ArrayList<Nodo<T1>> obtenerTodosLosVertices() {
+		
+		return this.vertices;
+	}
+	
+	public Nodo<T1> obtenerVertice(int i) {
+		return this.vertices.get(i);
+	}
 	
 }
