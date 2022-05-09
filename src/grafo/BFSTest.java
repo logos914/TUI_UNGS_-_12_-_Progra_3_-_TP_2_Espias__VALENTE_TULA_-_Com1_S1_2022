@@ -39,9 +39,9 @@ public class BFSTest {
 	
 	@Test
 	public void testNoEsConexo() {
-		this.grafoA.agregarArista(dataA, dataB, 1);
+		this.grafoB.agregarArista(dataC, dataB, 1);
 		
-		BFS bfs = new BFS(this.grafoA);
+		BFS bfs = new BFS(this.grafoB);
 		assertFalse(bfs.esConexo());
 	}
 

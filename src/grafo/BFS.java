@@ -22,37 +22,37 @@ public class BFS<T1> {
 		nodosMarcados = new boolean[this.grafo.tamano()];
 
 		
-		i = this.nodosPendientes.get(0);
-		this.nodosMarcados[0] = true;
-		this.nodosProcesados[0] = true;
-		
-		for (Distancia<T1> e : this.grafo.vecinos(i)) {
-
-			int pos = this.nodosPendientes.indexOf(e.getDestino());
-
-			this.nodosMarcados[pos] = true;
-
-		}
 		
 		while (!this.seRecorrieronTodosLosVertices() && this.hayMasParaProcesar()) {
 
-			int pos = this.proximoParaProcesar();
-			i = this.nodosPendientes.get(pos);
-			this.nodosMarcados[pos] = true;
-			this.nodosProcesados[pos] = true;
-
-			for (Distancia<T1> e : this.grafo.vecinos(i)) {
-
-				int indiceVecinoParaMarcar = this.nodosPendientes.indexOf(e.getDestino());
-
-				this.nodosMarcados[indiceVecinoParaMarcar] = true;
-
-			}
+			obtenerNodoActualYMarcarVecinos();
 
 		}
 
 		return seRecorrieronTodosLosVertices();
 
+	}
+	
+	private void obtenerNodoActualYMarcarVecinos() {
+		int pos = proximoParaProcesar();
+		Nodo<T1> i = this.nodosPendientes.get(pos);
+		marcarTambienConfirmarActual(pos);
+		marcarVecinos(i);
+	}
+	
+	private void marcarVecinos(Nodo<T1> nodoI) {
+		for (Distancia<T1> e : this.grafo.vecinos(nodoI)) {
+
+			int indiceVecinoParaMarcar = this.nodosPendientes.indexOf(e.getDestino());
+
+			this.nodosMarcados[indiceVecinoParaMarcar] = true;
+
+		}
+	}
+	
+	private void marcarTambienConfirmarActual(int pos) {
+		this.nodosMarcados[pos] = true;
+		this.nodosProcesados[pos] = true;
 	}
 
 	private boolean seRecorrieronTodosLosVertices() {
@@ -74,7 +74,13 @@ public class BFS<T1> {
 		}
 	}
 	
+	
+	
 	private int proximoParaProcesar() {
+		
+		if (!this.nodosProcesados[0]) {
+			return 0;
+		}
 
 		for (int i = 0; i < this.nodosPendientes.size(); i++) {
 
