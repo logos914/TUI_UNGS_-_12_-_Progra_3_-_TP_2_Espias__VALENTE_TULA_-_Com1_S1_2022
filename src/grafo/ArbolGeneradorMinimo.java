@@ -17,11 +17,10 @@ public class ArbolGeneradorMinimo<T1> {
 	}
 	
 	
-	public void generarMinimo() {
+	public Grafo<T1> generarMinimo() {
 		
 		this.aristas = new ArrayList<Arista<T1>>();
-		
-		this.contadorVertices = 0;
+		this.contadorVertices = 1;
 		
 	
 		
@@ -29,16 +28,56 @@ public class ArbolGeneradorMinimo<T1> {
 		arbol.agregarVertice(Vt);
 		
 		
-		for (Distancia<T1> i : this.grafo.vecinos(Vt)) {
-			Arista<T1> arista = new Arista(Vt,i.getDestino(),i.getPeso());
-			this.aristas.add(arista);
+		while (this.contadorVertices < this.grafo.tamano()) {
+			
+			
+			agregarAristasParaVerificar(Vt) ;
+			
+			
+			Arista<T1> Et = encontrarLaAristaDeMenorPeso();
+			
+			this.arbol.agregarVertice(Et.getB());
+			this.arbol.agregarArista(Vt, Et.getB(), Et.getPeso());
+			this.aristas.remove(Et);
+			
+			Vt = Et.getB();
+			this.contadorVertices++;
 		}
 		
 		
+		return this.arbol;
 		
 		
+		}
+	
 		
 		
+	private boolean estaAristaYaExiste(Arista<T1> a) {
+		
+		boolean encontrada = false;
+		
+		for (Arista<T1> e : this.aristas) 
+		{
+			if (e.equals(a)) {
+				encontrada = true;
+			}
+		}
+		return encontrada;
+	}
+		
+		
+	private void agregarAristasParaVerificar(Nodo<T1> Vt) {
+		
+		for (Distancia<T1> i : this.grafo.vecinos(Vt)) {
+			Arista<T1> arista = new Arista(Vt,i.getDestino(),i.getPeso());
+			if (!this.estaAristaYaExiste(null)) {
+				this.aristas.add(arista);
+			}
+		}
+	}
+	
+	
+	private Arista<T1> encontrarLaAristaDeMenorPeso() {
 		
 		float pesoMinimoActual = this.aristas.get(0).getPeso();
 		Arista<T1> Et = this.aristas.get(0);
@@ -51,23 +90,8 @@ public class ArbolGeneradorMinimo<T1> {
 				}
 			}
 		
-		this.arbol.agregarArista(Vt, Et.getDestino(), Et.getPeso());
-		
-		
-		
-		this.contadorVertices++;
-		
-		
-		
-		
-		
-		}
-	
-		
-		
-		
-		
-	
+		return Et;
+	}
 	
 	
 	
