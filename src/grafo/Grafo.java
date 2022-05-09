@@ -23,6 +23,11 @@ public class Grafo<T1> {
 		this.vertices.add(nuevoNodo);
 	}
 	
+	public void agregarVertice(Nodo<T1> nodo) {
+	
+		this.vertices.add(nodo);
+	}
+	
 	
 	
 	public void agregarArista(Arista<T1> arista)
