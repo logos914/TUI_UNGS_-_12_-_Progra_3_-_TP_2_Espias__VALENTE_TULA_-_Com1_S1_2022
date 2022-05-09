@@ -115,7 +115,7 @@ public class Nodo<T1> {
 					+ indice);
 		}
 		
-		if (indice > this.vecinos.size()) {
+		if (indice >= this.vecinos.size()) {
 			throw new IllegalArgumentException("No se puede eliminar un "
 					+ "vecino cuyo índice excede la cantidad de vecinos "
 					+ "Valor indicado: " 

@@ -90,14 +90,7 @@ public class NodoTest {
 		
 	}
 	
-	
-	@Test (expected = IllegalArgumentException.class)
-	public void testNoEliminarvecinoQueNoEsVecino() {
-		this.nodoA.eliminarVecino(nodoB);
 		
-		
-	}
-	
 
 	@Test (expected = IllegalArgumentException.class)
 	public void testNoAgregarVecinosDuplicados() {
@@ -130,6 +123,61 @@ public class NodoTest {
 	}
 	
 	
+	@Test
+	public void testEliminarVecinoPorIndice() {
+		this.nodoA.agregarVecino(nodoB, 1.0f);
+		this.nodoA.agregarVecino(nodoC, 2.0f);
+		
+		this.nodoA.eliminarVecino(0);
+		
+		
+		
+		Distancia<String> distanciaEsperada = this.nodoA.obtenerDistancia(0);
+		Distancia<String> distanciaReal = new Distancia(nodoC, 2.0f);
+		assertTrue(distanciaEsperada.equals(distanciaReal));
+	}
 	
+	
+	@Test
+	public void testEliminarVecinoPorNodo() {
+		this.nodoA.agregarVecino(nodoB, 1.0f);
+		this.nodoA.agregarVecino(nodoC, 2.0f);
+		
+		this.nodoA.eliminarVecino(nodoB);
+		
+		
+		
+		Distancia<String> distanciaEsperada = this.nodoA.obtenerDistancia(0);
+		Distancia<String> distanciaReal = new Distancia(nodoC, 2.0f);
+		assertTrue(distanciaEsperada.equals(distanciaReal));
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testNoEliminarvecinoQueNoEsVecino() {
+		this.nodoA.agregarVecino(nodoC, 2.0f);
+		this.nodoA.eliminarVecino(nodoB);
+		
+		
+	}
+	
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testNoEliminarvecinoConIndiceNegativo() {
+		this.nodoA.agregarVecino(nodoB, 1.0f);
+		this.nodoA.agregarVecino(nodoC, 2.0f);
+		this.nodoA.eliminarVecino(-1);
+		
+		
+	}
+	
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testNoEliminarvecinoConIndiceMayor() {
+		this.nodoA.agregarVecino(nodoB, 1.0f);
+		this.nodoA.agregarVecino(nodoC, 2.0f);
+		this.nodoA.eliminarVecino(2);
+		
+		
+	}
 
 }
