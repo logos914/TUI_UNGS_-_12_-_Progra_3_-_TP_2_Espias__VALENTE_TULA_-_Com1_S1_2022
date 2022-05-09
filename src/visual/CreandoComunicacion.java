@@ -131,7 +131,7 @@ public class CreandoComunicacion extends JFrame {
 		contentPane.add(panelMensajes, BorderLayout.SOUTH);
 		panelMensajes.setLayout(new BorderLayout(0, 0));
 		
-		lblMensajes = new JLabel("Podr\u00E1s enviar el mensaje a todos los esp\u00EDas, cuando el grafo que forman los nodos sea conexo");
+		lblMensajes = new JLabel("Podrás enviar el mensaje a todos los espías, cuando el grafo que forman los nodos sea conexo");
 		lblMensajes.setHorizontalAlignment(SwingConstants.LEFT);
 		lblMensajes.setForeground(Color.RED);
 		panelMensajes.add(lblMensajes, BorderLayout.WEST);
@@ -215,6 +215,14 @@ public class CreandoComunicacion extends JFrame {
 		trazo.setColor(Color.GRAY);
 		trazo.setName(peso);
 		
+	}
+	
+	public void habilitarBotonSiguiente() {
+		this.btnGenerar.setEnabled(true);
+	}
+	
+	public void cambiarMensaje(String texto) {
+		lblMensajes.setText(texto);
 	}
 	
 }
