@@ -71,7 +71,7 @@ public class CreandoComunicacion extends JFrame {
 		JPanel panel = new JPanel();
 		panelComunicacion.add(panel, BorderLayout.NORTH);
 		
-		lblEspiaOrigen = new JLabel("EspÃ­a de origen:");
+		lblEspiaOrigen = new JLabel("Espí­a de origen:");
 		panel.add(lblEspiaOrigen);
 		
 		modeloEspiaOrigen = new DefaultComboBoxModel();
@@ -93,7 +93,7 @@ public class CreandoComunicacion extends JFrame {
 		JPanel panel_1 = new JPanel();
 		panelComunicacion.add(panel_1, BorderLayout.SOUTH);
 		
-		JLabel lblseleccioneDestino = new JLabel("Clic en el espÃ­a de destino:");
+		JLabel lblseleccioneDestino = new JLabel("Clic en el espía de destino:");
 		panel_1.add(lblseleccioneDestino);
 		
 		JPanel panelMapa = new JPanel();

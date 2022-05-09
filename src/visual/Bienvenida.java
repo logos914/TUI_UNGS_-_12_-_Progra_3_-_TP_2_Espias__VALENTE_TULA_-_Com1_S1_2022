@@ -51,7 +51,7 @@ public class Bienvenida extends JFrame {
 		frame.setContentPane(background);
 		frame.getContentPane().setLayout(null);
 		
-		btnCrearRed = new Button("Nueva Red de EspÃ­as");
+		btnCrearRed = new Button("Nueva Red de Espías");
 		btnCrearRed.setFont(new Font("Dialog", Font.BOLD, 17));
 		btnCrearRed.setForeground(Color.GREEN);
 		btnCrearRed.setBackground(Color.BLACK);
@@ -59,7 +59,7 @@ public class Bienvenida extends JFrame {
 		background.add(btnCrearRed);
 		//background.setVisible(true);
 		
-		btnCargarRed = new Button("Cargar Red de EspÃ­as");
+		btnCargarRed = new Button("Cargar Red de Espías");
 		btnCargarRed.setForeground(Color.GREEN);
 		btnCargarRed.setFont(new Font("Dialog", Font.BOLD, 17));
 		btnCargarRed.setBackground(Color.BLACK);

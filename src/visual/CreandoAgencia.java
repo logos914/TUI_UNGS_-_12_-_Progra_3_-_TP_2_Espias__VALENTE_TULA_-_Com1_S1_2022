@@ -65,7 +65,7 @@ public class CreandoAgencia extends JFrame {
 		Component verticalStrut = Box.createVerticalStrut(20);
 		panelFormularioNuevoAgente.add(verticalStrut);
 		
-		JLabel lblIngresarAlias = new JLabel("Ingres√° el Alias del Esp√≠a");
+		JLabel lblIngresarAlias = new JLabel("Ingres· el Alias del EspÌa");
 		lblIngresarAlias.setHorizontalAlignment(SwingConstants.CENTER);
 		lblIngresarAlias.setVerticalAlignment(SwingConstants.BOTTOM);
 		lblIngresarAlias.setForeground(Color.RED);
@@ -74,7 +74,7 @@ public class CreandoAgencia extends JFrame {
 		
 		textFieldAlias = new JTextField();
 		textFieldAlias.setHorizontalAlignment(SwingConstants.CENTER);
-		textFieldAlias.setToolTipText("Ingres√° el Alias del Esp√≠a");
+		textFieldAlias.setToolTipText("Ingres· el Alias del EspÌa");
 		lblIngresarAlias.setLabelFor(textFieldAlias);
 		textFieldAlias.setBackground(Color.BLACK);
 		textFieldAlias.setForeground(Color.GREEN);
@@ -85,7 +85,7 @@ public class CreandoAgencia extends JFrame {
 		Component verticalStrut_1 = Box.createVerticalStrut(20);
 		panelFormularioNuevoAgente.add(verticalStrut_1);
 		
-		JLabel lblIngresElCdigo = new JLabel("Ingres√° el c√≥digo del esp√≠a (\"007\")");
+		JLabel lblIngresElCdigo = new JLabel("Ingres· el cÛdigo del espÌa (\"007\")");
 		lblIngresElCdigo.setVerticalAlignment(SwingConstants.BOTTOM);
 		lblIngresElCdigo.setForeground(Color.RED);
 		lblIngresElCdigo.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 16));
@@ -93,7 +93,7 @@ public class CreandoAgencia extends JFrame {
 		
 		textFieldCodigo = new JTextField();
 		textFieldCodigo.setHorizontalAlignment(SwingConstants.CENTER);
-		textFieldCodigo.setToolTipText("Ingres√° el c√≥digo del esp√≠a, por ej. \"007\"");
+		textFieldCodigo.setToolTipText("Ingres· el cÛdigo del espÌa, por ej. \"007\"");
 		textFieldCodigo.setForeground(Color.GREEN);
 		textFieldCodigo.setFont(new Font("Dialog", Font.PLAIN, 20));
 		textFieldCodigo.setColumns(6);
@@ -119,7 +119,7 @@ public class CreandoAgencia extends JFrame {
 				new Object[][] {
 				},
 				new String[] {
-					"Agente", "C√≥digo"
+					"Agente", "CÛdigo"
 				}
 			);
 		
