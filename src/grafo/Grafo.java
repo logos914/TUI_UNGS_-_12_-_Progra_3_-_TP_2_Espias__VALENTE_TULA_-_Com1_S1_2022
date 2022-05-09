@@ -36,6 +36,48 @@ public class Grafo<T1> {
 		arista.getA().agregarVecino(arista.getB(), arista.getPeso());
 		arista.getB().agregarVecino(arista.getA(), arista.getPeso());
 	}
+	
+	public void agregarArista(Nodo<T1> a, Nodo<T1> b, float peso) {
+		try {
+			Arista<T1> arista = new Arista(a,b,peso);
+			this.agregarArista(arista);
+		} catch (IllegalArgumentException e) {
+			throw new IllegalArgumentException(e);
+		}
+	}
+	
+	public void agregarArista(T1 a, T1 b, float peso) {
+		try {
+			Nodo<T1> nodoA = this.obtenerVertice(a);
+			Nodo<T1> nodoB = this.obtenerVertice(b);
+			
+			if (nodoA != null && nodoB != null) {
+				Arista<T1> arista = new Arista(nodoA,nodoB,peso);
+				this.agregarArista(arista);
+			} else {
+				
+				if (nodoA == null && nodoB != null) {
+					throw new IllegalArgumentException("No se puede agregar arista. "
+							+ "No existe un nodo A que contenga dicha información\n A:" + a.toString());
+				}
+				if (nodoB == null && nodoA != null) {
+					throw new IllegalArgumentException("No se puede agregar arista. "
+							+ "No existe un nodo B que contenga dicha información\n B:" + b.toString());
+				}
+				
+				throw new IllegalArgumentException("No se puede agregar arista. "
+						+ "No existe un nodo A y B que contenga dicha información\n"
+						+ "A:" + a.toString() + "\n"
+						+ "B:" + b.toString() + "\n");
+
+			}
+			
+			
+		
+		} catch (IllegalArgumentException e) {
+			throw new IllegalArgumentException(e);
+		}
+	}
 
 	private void verificarQueLosNodosNoSeanElMismo(Arista<T1> arista) {
 		
@@ -127,8 +169,19 @@ public class Grafo<T1> {
 		return this.vertices;
 	}
 	
+	
 	public Nodo<T1> obtenerVertice(int i) {
 		return this.vertices.get(i);
+	}
+	
+	public Nodo<T1> obtenerVertice(T1 e) {
+		
+		for (Nodo<T1> i : this.obtenerTodosLosVertices()) {
+			if (i.getInformacion().equals(e)) {
+				return i;
+			}
+		}
+		return null;
 	}
 	
 }
