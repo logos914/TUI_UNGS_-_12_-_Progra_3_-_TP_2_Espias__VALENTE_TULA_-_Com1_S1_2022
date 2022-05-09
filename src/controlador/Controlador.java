@@ -12,8 +12,11 @@ import javax.swing.JFrame;
 import org.openstreetmap.gui.jmapviewer.Coordinate;
 import org.openstreetmap.gui.jmapviewer.MapMarkerDot;
 
+import grafo.ArbolGeneradorMinimo;
 import grafo.BFS;
+import grafo.Distancia;
 import grafo.Grafo;
+import grafo.Nodo;
 import modelo.Agencia;
 import modelo.Espia;
 import visual.Bienvenida;
@@ -26,6 +29,8 @@ public class Controlador {
 	private JFrame gui;
 	private Grafo<Espia> espias;
 	private int espiasConPosicion = 0;
+	private ArbolGeneradorMinimo<Espia> agm;
+	private Grafo<Espia> grafoAgm;
 
 	public Controlador() {
 		EventQueue.invokeLater(new Runnable() {
@@ -65,6 +70,13 @@ public class Controlador {
 		((UbicandoEspias) gui).lanzarEventoClicParaAgregarMarcador(new OyenteClicEnMapaParaUbicarEspia());
 	}
 
+	private void escucharClicEnMapaParaSeleccionarEspia() {
+		((CreandoComunicacion) gui).lanzarEventoClic(new OyenteClicEnMapaParaSeleccionarEspia());
+	}
+	
+	private void escucharClicCrearArbolGeneradorMinimo() {
+		((CreandoComunicacion) gui).lanzarEventoClicSiguiente(new OyenteCrearArbolGeneradorMinimo());
+	}
 	
 	
 	
@@ -97,8 +109,9 @@ public class Controlador {
 		this.gui = new CreandoComunicacion();
 		
 		((CreandoComunicacion) gui).colocarMarcadorDeLosEspias(this.agencia.obtenerTodosLosEspias());
-		((CreandoComunicacion) gui).lanzarEventoClic(new OyenteClicEnMapaParaSeleccionarEspia());
 		((CreandoComunicacion) gui).completarListadoDeEspias(this.agencia.obtenerTodosLosEspias());
+		escucharClicEnMapaParaSeleccionarEspia();
+		
 		
 		espias = new Grafo<Espia>();
 		
@@ -170,14 +183,16 @@ public class Controlador {
 			   Float peso = ((CreandoComunicacion)gui).obtenerProbabilidadIntercepcion();
 			   
 			   try {
+				   
 				   this.espias.agregarArista(espiaOrigen, espiaDestino, peso);
-				   ((CreandoComunicacion)gui).dibujarAristaEnMapa( espiaOrigen.obtenerPosicion(), espiaDestino.obtenerPosicion(), peso.toString()); 
+				   ((CreandoComunicacion)gui).dibujarAristaEnMapa( espiaOrigen.obtenerPosicion(), espiaDestino.obtenerPosicion(), peso.toString(), false); 
 
 				   BFS bfs = new BFS(this.espias);
 				   
 				   if (bfs.esConexo()) {
 					   ((CreandoComunicacion)gui).cambiarMensaje("Ya puedes generar la comunicación");
 					   ((CreandoComunicacion)gui).habilitarBotonSiguiente();
+					   escucharClicCrearArbolGeneradorMinimo();
 
 				   } else {
 					   ((CreandoComunicacion)gui).cambiarMensaje("Podrás enviar el mensaje a todos los espías, cuando el grafo que forman los nodos sea conexo");
@@ -193,6 +208,24 @@ public class Controlador {
 			   
    
 		   }
+	}
+	
+	
+	private void arbolGeneradorMinimo() {
+		
+		this.agm = new ArbolGeneradorMinimo(this.espias);
+		this.grafoAgm = this.agm.generarMinimo();
+		
+		for (Nodo<Espia> V : this.grafoAgm.obtenerTodosLosVertices()) {
+			for (Distancia<Espia> E : V.obtenerTodosLosVecinos()) {
+				((CreandoComunicacion)gui).dibujarAristaEnMapa( V.getInformacion().getCoordenadas(), E.getDestino().getInformacion().getCoordenadas(), E.getPeso().toString(), true); 
+			}
+		}
+		
+		
+		
+		
+		
 	}
 	
 	
@@ -304,6 +337,14 @@ public class Controlador {
 		public void mouseExited(MouseEvent e) {
 		}
 		
+	}
+	
+	
+	class OyenteCrearArbolGeneradorMinimo implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			arbolGeneradorMinimo();
+		}
+
 	}
 	
 
