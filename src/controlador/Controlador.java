@@ -32,6 +32,7 @@ public class Controlador {
 				try {
 					agencia = new Agencia();
 					gui = new Bienvenida();
+					espias = new Grafo();
 					actualizarGUI();
 					escucharEventosBienvenida();
 				} catch (Exception e) {
@@ -149,6 +150,57 @@ public class Controlador {
 	}
 	
 	
+	private void crearArista(MouseEvent e) {
+		
+		
+		Point puntoClickeado = e.getPoint();
+		
+		MapMarkerDot marcadorPresionado = this.obtenerMarcadorPresionado(puntoClickeado);
+		   
+		   if (marcadorPresionado != null) {
+			   System.out.println(marcadorPresionado.getName());
+			   
+			   Espia espiaOrigen = agencia.obtenerEspia(((CreandoComunicacion)gui).obtenerEspiaOrigen());
+			   Espia espiaDestino = agencia.obtenerEspia(marcadorPresionado.getName());
+			   Float peso = ((CreandoComunicacion)gui).obtenerProbabilidadIntercepcion();
+			   
+			   try {
+				   this.espias.agregarArista(espiaOrigen, espiaDestino, peso);
+				   ((CreandoComunicacion)gui).dibujarAristaEnMapa( espiaOrigen.obtenerPosicion(), espiaDestino.obtenerPosicion(), peso.toString()); 
+			   } catch (Exception excepcion) {
+				   System.out.println("No se puede crear esta arista");
+			   }
+			   
+			   
+			   
+			   
+   
+		   }
+	}
+	
+	
+	private MapMarkerDot obtenerMarcadorPresionado(Point puntoClickeado) {
+		
+		MapMarkerDot marcadorPresionado = null;
+		
+		for (MapMarkerDot marcador : ((CreandoComunicacion)gui).obtenerMarcadores()) {
+			   
+            Point puntoDelMarcador = ((CreandoComunicacion)gui).obtenerPosicion(marcador.getLat(), marcador.getLon());
+            if (puntoDelMarcador != null) {
+                int radioDelMarcador = ((CreandoComunicacion)gui).obtenerRadio(marcador, puntoDelMarcador);
+                Rectangle areaDelMarcador = new Rectangle(puntoDelMarcador.x - radioDelMarcador, puntoDelMarcador.y - radioDelMarcador, radioDelMarcador + radioDelMarcador, radioDelMarcador + radioDelMarcador);
+                if (areaDelMarcador.contains(puntoClickeado)) {
+                	marcadorPresionado = marcador;
+                    break;
+                }
+            }
+            
+        }
+		
+		return marcadorPresionado;
+	}
+	
+	
 	
 	
 	private void actualizarGUI() {
@@ -214,33 +266,7 @@ public class Controlador {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			
-			Point puntoClickeado = e.getPoint();
-			MapMarkerDot marcadorPresionado = null;
-			
-			   for (MapMarkerDot marcador : ((CreandoComunicacion)gui).obtenerMarcadores()) {
-				   
-		            Point puntoDelMarcador = ((CreandoComunicacion)gui).obtenerPosicion(marcador.getLat(), marcador.getLon());
-		            if (puntoDelMarcador != null) {
-		                int radioDelMarcador = ((CreandoComunicacion)gui).obtenerRadio(marcador, puntoDelMarcador);
-		                Rectangle areaDelMarcador = new Rectangle(puntoDelMarcador.x - radioDelMarcador, puntoDelMarcador.y - radioDelMarcador, radioDelMarcador + radioDelMarcador, radioDelMarcador + radioDelMarcador);
-		                if (areaDelMarcador.contains(puntoClickeado)) {
-		                	marcadorPresionado = marcador;
-		                    break;
-		                }
-		            }
-		            
-		        }
-			   if (marcadorPresionado != null) {
-				   System.out.println(marcadorPresionado.getName());
-				   
-				   Espia espiaOrigen = agencia.obtenerEspia(((CreandoComunicacion)gui).obtenerEspiaOrigen());
-				   Espia espiaDestino = agencia.obtenerEspia(marcadorPresionado.getName());
-				   Float peso = ((CreandoComunicacion)gui).obtenerProbabilidadIntercepcion();
-				   
-				   
-				   ((CreandoComunicacion)gui).dibujarAristaEnMapa( espiaOrigen.obtenerPosicion(), espiaDestino.obtenerPosicion(), peso.toString()); 
-	   
-			   }
+			crearArista(e);
 			   
 			   
 		}
