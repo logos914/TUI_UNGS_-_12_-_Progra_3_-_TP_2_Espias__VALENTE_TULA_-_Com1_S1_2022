@@ -24,8 +24,8 @@ public class Grafo<T1> {
 	}
 	
 	public void agregarVertice(Nodo<T1> nodo) {
-	
-		this.vertices.add(nodo);
+		Nodo<T1> nuevoNodo = new Nodo(nodo.getInformacion());
+		this.vertices.add(nuevoNodo);
 	}
 	
 	
