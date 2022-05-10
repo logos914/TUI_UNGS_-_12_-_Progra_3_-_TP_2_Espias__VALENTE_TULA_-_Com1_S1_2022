@@ -1,9 +1,10 @@
 {
-	"Espias":[ {"alias" : "Gentleman","codigo" : "01"},
-			   {"alias" : "Casanova","codigo" : "02"},
-  			   {"alias" : "Hunt","codigo" : "13"},
-  			   {"alias" : "Lockley","codigo" : "50"},
-  			   {"alias" : "Lancelot","codigo" : "53"},
-  			   {"alias" : "Persey","codigo" : "19"}
+	"Espias":[ {"alias" : "Gentleman","codigo" : "GTMN"},
+			   {"alias" : "Casanova","codigo" : "CSNV"},
+			   {"alias" : "Bond", "codigo" : "007"},
+  			   {"alias" : "Hunt","codigo" : "FMI"},
+  			   {"alias" : "Lockley","codigo" : "L50"},
+  			   {"alias" : "Lancelot","codigo" : "LCT"},
+  			   {"alias" : "Persey","codigo" : "PSY"}
   	]
 }
