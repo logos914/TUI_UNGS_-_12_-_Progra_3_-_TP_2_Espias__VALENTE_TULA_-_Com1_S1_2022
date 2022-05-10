@@ -1,6 +1,9 @@
 {
-	"Espias":[ {"alias" : "Gentleman","codigo" : "01","coor" : [ -34.52231902477914, -58.70139956474304 ]},
-			   {"alias" : "Casanova","codigo" : "02","coor" : [ -34.52250907482086, -58.70097041130066 ]},
-  			   {"alias" : "Hunt","codigo" : "13","coor" : [ -34.52241183996997, -58.70036423206329 ]}
+	"Espias":[ {"alias" : "Gentleman","codigo" : "01"},
+			   {"alias" : "Casanova","codigo" : "02"},
+  			   {"alias" : "Hunt","codigo" : "13"},
+  			   {"alias" : "Lockley","codigo" : "50"},
+  			   {"alias" : "Lancelot","codigo" : "53"},
+  			   {"alias" : "Persey","codigo" : "19"}
   	]
 }

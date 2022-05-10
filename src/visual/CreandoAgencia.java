@@ -121,7 +121,7 @@ public class CreandoAgencia extends JFrame {
 				new String[] {
 					"Agente", "Código"
 				}
-			);
+			); 
 		
 		
 		

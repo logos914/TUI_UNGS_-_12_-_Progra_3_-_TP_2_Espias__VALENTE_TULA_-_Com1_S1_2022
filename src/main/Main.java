@@ -17,10 +17,7 @@ public class Main {
 	public static void main(String[] args) throws FileNotFoundException, IOException, ParseException {
 		
 		
-//		Controlador controlador = new Controlador();
-		
-		LeerJson json = new LeerJson();
-		json.leer();
+		Controlador controlador = new Controlador();
 		
 
 	}

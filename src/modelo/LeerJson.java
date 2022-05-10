@@ -9,11 +9,10 @@ import org.json.simple.parser.JSONParser;
 public class LeerJson {
 
 	JSONParser parser = new JSONParser();
-	String listadoAgentes = "";
 	Espia espia;
 	Agencia agencia = new Agencia();
 
-	public String leer() {
+	public void leer() {
 		 JSONParser parser = new JSONParser();
     
     try {
@@ -29,11 +28,9 @@ public class LeerJson {
             
             Espia e = new Espia(jsonObject1.get("alias").toString(),jsonObject1.get("codigo").toString());
             agencia.reclutarEspia(e);
-            listadoAgentes.add
         }
 		} catch (Exception ex) {
 			System.out.println("Exception: " + ex.getMessage());
 		}
-		return listadoAgentes;
 	}
 }

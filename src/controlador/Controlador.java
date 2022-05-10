@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JFrame;
+
 import org.openstreetmap.gui.jmapviewer.Coordinate;
 import org.openstreetmap.gui.jmapviewer.MapMarkerDot;
 
@@ -19,6 +20,7 @@ import grafo.Grafo;
 import grafo.Nodo;
 import modelo.Agencia;
 import modelo.Espia;
+import modelo.LeerJson;
 import visual.Bienvenida;
 import visual.CreandoAgencia;
 import visual.CreandoComunicacion;
@@ -41,6 +43,7 @@ public class Controlador {
 					espias = new Grafo();
 					actualizarGUI();
 					escucharEventosBienvenida();
+					escucharEventosBienvenidaCarga();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -98,13 +101,17 @@ public class Controlador {
 	}
 	
 	private void irHaciaCargarAgencia() {
-
 		this.gui.dispose();
 		this.gui = new CreandoAgencia();
 		actualizarGUI();
 		escucharEventosAlCrearAgencia();
 		escucharEventoIrPantallaComunicaciones();
 		
+	}
+	
+	public void cargarEspias() {
+		LeerJson json = new LeerJson();
+		json.leer();
 	}
 	
 	
