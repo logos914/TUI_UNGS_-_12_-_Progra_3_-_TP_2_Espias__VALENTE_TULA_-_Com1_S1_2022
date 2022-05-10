@@ -12,5 +12,9 @@
 	<classpathentry kind="lib" path="C:/Users/Valente/Downloads/jackson-core-2.13.2.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Valente/Downloads/jackson-databind-2.13.2.2.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Valente/Downloads/json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="Librerias/jackson-annotations-2.13.2.jar"/>
+	<classpathentry kind="lib" path="Librerias/jackson-core-2.13.2.jar"/>
+	<classpathentry kind="lib" path="Librerias/jackson-databind-2.13.2.2.jar"/>
+	<classpathentry kind="lib" path="Librerias/json-simple-1.1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
