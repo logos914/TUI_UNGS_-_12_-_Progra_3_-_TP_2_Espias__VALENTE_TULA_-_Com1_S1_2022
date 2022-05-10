@@ -32,21 +32,21 @@ public class Grafo<T1> {
 	
 	
 	
-	public void agregarArista(Arista<T1> arista)
+	private void agregarArista(Arista<T1> arista)
 	{
 		this.verificarVerticesDeArista(arista);
 		
 		this.verificarExisteArista(arista);
 		
 		this.verificarQueLosNodosNoSeanElMismo(arista);
-			
+
 		arista.getA().agregarVecino(arista.getB(), arista.getPeso());
 		arista.getB().agregarVecino(arista.getA(), arista.getPeso());
 	}
 	
 	public void agregarArista(Nodo<T1> a, Nodo<T1> b, float peso) {
 		try {
-			Arista<T1> arista = new Arista(a,b,peso);
+			Arista<T1> arista = new Arista(this.obtenerVerticeConVecinos(a),this.obtenerVerticeConVecinos(b),peso);
 			this.agregarArista(arista);
 		} catch (IllegalArgumentException e) {
 			throw new IllegalArgumentException(e);
@@ -130,8 +130,8 @@ public class Grafo<T1> {
 	public boolean existeArista(Arista<T1> arista)
 	{
 
-		Nodo<T1> nodoA = this.obtenerNodoSinVecinos(arista.getA());
-		Nodo<T1> nodoB = this.obtenerNodoSinVecinos(arista.getB());
+		Nodo<T1> nodoA = this.obtenerVerticeConVecinos(arista.getA());
+		Nodo<T1> nodoB = this.obtenerVerticeConVecinos(arista.getB());
 		
 		if (nodoA == null || nodoB == null) {
 			return false;
