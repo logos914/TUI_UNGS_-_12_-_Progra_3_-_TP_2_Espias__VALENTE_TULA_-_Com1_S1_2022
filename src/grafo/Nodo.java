@@ -140,6 +140,14 @@ public class Nodo<T1> {
 	}
 	
 	
+	public boolean equals(Nodo<T1> e) {
+		if (this.informacion.equals(e.getInformacion())) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	
 	
 	
