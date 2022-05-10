@@ -26,8 +26,8 @@ public class Grafo<T1> {
 	
 	
 	public void agregarVertice(Nodo<T1> nodo) {
-		Nodo<T1> nuevoNodo = new Nodo(nodo.getInformacion());
-		this.vertices.add(nuevoNodo);
+		
+		this.vertices.add(nodo);
 	}
 	
 	
@@ -63,17 +63,17 @@ public class Grafo<T1> {
 				this.agregarArista(arista);
 			} else {
 				
-				if (nodoA == null && nodoB != null) {
-					throw new IllegalArgumentException("No se puede agregar arista. "
-							+ "No existe un nodo A que contenga dicha información\n A:" + a.toString());
-				}
-				if (nodoB == null && nodoA != null) {
-					throw new IllegalArgumentException("No se puede agregar arista. "
-							+ "No existe un nodo B que contenga dicha información\n B:" + b.toString());
-				}
+//				if (nodoA == null && nodoB != null) {
+//					throw new IllegalArgumentException("No se puede agregar arista. "
+//							+ "No existe un nodo A que contenga dicha información\n A:" + a.toString());
+//				}
+//				if (nodoB == null && nodoA != null) {
+//					throw new IllegalArgumentException("No se puede agregar arista. "
+//							+ "No existe un nodo B que contenga dicha información\n B:" + b.toString());
+//				}
 				
 				throw new IllegalArgumentException("No se puede agregar arista. "
-						+ "No existe un nodo A y B que contenga dicha información\n"
+						+ "No se pueden agregar aristas con Vértices con cuyo valor es nulo\n"
 						+ "A:" + a.toString() + "\n"
 						+ "B:" + b.toString() + "\n");
 
@@ -98,7 +98,7 @@ public class Grafo<T1> {
 
 
 	
-	public void verificarVerticesDeArista(Arista<T1> arista) {
+	private void verificarVerticesDeArista(Arista<T1> arista) {
 		if (!verificarVertice(arista.getA())) {
 			throw new IllegalArgumentException("Este nodo, no forma parte de este gráfo.\n Nodo: " + arista.getA().toString());
 		}
@@ -119,6 +119,11 @@ public class Grafo<T1> {
 	{
 		if (this.existeArista(arista)) {
 			
+			Nodo<T1> nodoA = this.obtenerVerticeConVecinos(arista.getA());
+			Nodo<T1> nodoB = this.obtenerVerticeConVecinos(arista.getB());
+			
+			nodoA.eliminarVecino(nodoB);
+			nodoB.eliminarVecino(nodoA);
 		}
 	}
 
@@ -176,11 +181,7 @@ public class Grafo<T1> {
 		return false;
 	}
 
-	// Verifica que i y j sean distintos
-	private boolean verificarDistintos(Nodo<T1> a, Nodo<T1> b)
-	{
-		return  a.equals(b) ? true : false;
-	}
+
 
 	public ArrayList<Nodo<T1>> obtenerTodosLosVertices() {
 		
