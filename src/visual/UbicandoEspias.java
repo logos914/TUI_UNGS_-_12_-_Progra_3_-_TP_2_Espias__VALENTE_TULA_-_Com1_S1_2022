@@ -59,11 +59,11 @@ public class UbicandoEspias extends JFrame {
 		
 		panelMapa.add(mapa);
 		
-		Coordinate coordenadaInicial= new Coordinate(-34.5331,-58.7007);
+		Coordinate coordenadaInicial= new Coordinate(-34.52202,-58.70002);
 		
 		
 		mapa.setLayout(null);
-		mapa.setDisplayPosition(coordenadaInicial,16);
+		mapa.setDisplayPosition(coordenadaInicial,18);
 		
 		
 		

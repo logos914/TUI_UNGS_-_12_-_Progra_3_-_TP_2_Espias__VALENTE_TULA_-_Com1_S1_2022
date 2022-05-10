@@ -121,7 +121,7 @@ public class CreandoComunicacion extends JFrame {
 		
 		panelMapa.add(mapa);
 		
-		Coordinate coordenadaInicial= new Coordinate(-34.5331,-58.7007);
+		Coordinate coordenadaInicial= new Coordinate(-34.52202,-58.70002);
 		
 		
 		mapa.setLayout(null);
@@ -141,7 +141,7 @@ public class CreandoComunicacion extends JFrame {
 		btnGenerar.setBackground(Color.DARK_GRAY);
 		btnGenerar.setForeground(Color.GREEN);
 		panelMensajes.add(btnGenerar, BorderLayout.EAST);
-		mapa.setDisplayPosition(coordenadaInicial,16);
+		mapa.setDisplayPosition(coordenadaInicial,18);
 		
 		
 		
