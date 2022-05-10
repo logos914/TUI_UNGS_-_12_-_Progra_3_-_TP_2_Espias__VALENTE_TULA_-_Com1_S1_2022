@@ -57,6 +57,10 @@ public class Controlador {
 	private void escucharEventosBienvenida() {
 		((Bienvenida) gui).lanzarEventoNuevaAgencia(new OyenteNuevaAgencia());
 	}
+	
+	private void escucharEventosBienvenidaCarga() {
+		((Bienvenida) gui).lanzarEventoCargarAgencia(new OyenteCargarAgencia());
+	}
 
 	private void escucharEventosAlCrearAgencia() {
 		((CreandoAgencia) gui).lanzarEventoNuevoEspia(new OyenteNuevoAgente());
@@ -92,6 +96,17 @@ public class Controlador {
 		escucharEventoIrPantallaComunicaciones();
 		
 	}
+	
+	private void irHaciaCargarAgencia() {
+
+		this.gui.dispose();
+		this.gui = new CreandoAgencia();
+		actualizarGUI();
+		escucharEventosAlCrearAgencia();
+		escucharEventoIrPantallaComunicaciones();
+		
+	}
+	
 	
 	private void irHaciaUbicarEspiasEnMapa() {
 		
@@ -268,6 +283,12 @@ public class Controlador {
 	class OyenteNuevaAgencia implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			irHaciaCrearAgencia();
+		}
+	}
+	
+	class OyenteCargarAgencia implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			irHaciaCargarAgencia();
 		}
 	}
 

@@ -83,6 +83,10 @@ public class Bienvenida extends JFrame {
 		this.btnCrearRed.addActionListener(escucharClic);
 	}
 	
+	public void lanzarEventoCargarAgencia(ActionListener escucharClic) {
+		this.btnCargarRed.addActionListener(escucharClic);
+	}
+	
 	
 	
 }
