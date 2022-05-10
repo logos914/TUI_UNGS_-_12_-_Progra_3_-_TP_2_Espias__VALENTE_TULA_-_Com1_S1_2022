@@ -100,15 +100,6 @@ public class Controlador {
 		
 	}
 	
-	private void irHaciaCargarAgencia() {
-		this.gui.dispose();
-		this.gui = new CreandoAgencia();
-		actualizarGUI();
-		escucharEventosAlCrearAgencia();
-		escucharEventoIrPantallaComunicaciones();
-		
-	}
-	
 	public void cargarEspias() {
 		LeerJson json = new LeerJson();
 		json.leer();
@@ -116,7 +107,7 @@ public class Controlador {
 	
 	
 	private void irHaciaUbicarEspiasEnMapa() {
-		
+		cargarEspias();
 		this.gui.dispose();
 		this.gui = new UbicandoEspias();
 		actualizarGUI();
@@ -295,7 +286,7 @@ public class Controlador {
 	
 	class OyenteCargarAgencia implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			irHaciaCargarAgencia();
+			irHaciaUbicarEspiasEnMapa();
 		}
 	}
 
