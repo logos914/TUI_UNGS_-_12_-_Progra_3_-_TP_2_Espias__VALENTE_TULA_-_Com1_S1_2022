@@ -32,15 +32,15 @@ public class ArbolGeneradorMinimo<T1> {
 		nodoActualDelGrafo = this.grafo.obtenerVertice(0);
 		nodoActualParaArbol = new Nodo(nodoActualDelGrafo.getInformacion());
 		this.arbol.agregarVertice(nodoActualParaArbol);
-		
-		
-		while (this.arbol.tamano() != this.grafo.tamano()) {
+		this.agregarAristasParaVerificar();
+		int contador = 1;
+		while (this.aristas.size() > 0) {
+			
+			System.out.println("While: " + contador);
 			
 			
-		
 			
-			this.agregarAristasParaVerificar();
-		
+			
 			Et = encontrarLaAristaDeMenorPeso();
 			
 		
@@ -51,15 +51,23 @@ public class ArbolGeneradorMinimo<T1> {
 			nodoActualParaArbol =  this.arbol.obtenerVertice(Et.getA().getInformacion());
 		
 		
-		
+		if (this.arbol.obtenerVertice(nodoParaAgregarParaArbol.getInformacion()) == null) {
 			this.arbol.agregarVertice(nodoParaAgregarParaArbol);
+		}
+			
+			nodoParaAgregarParaArbol = this.arbol.obtenerVertice(nodoParaAgregarParaArbol.getInformacion());
 			this.arbol.agregarArista(nodoActualParaArbol, nodoParaAgregarParaArbol, Et.getPeso());
 			this.aristas.remove(Et);
 			
 			nodoActualDelGrafo = this.grafo.obtenerVertice(nodoParaAgregarDelGrafo.getInformacion());
 			nodoActualParaArbol = nodoParaAgregarParaArbol;
-			
+			quitarAristasQueNoRequierenProcesar();
+			this.agregarAristasParaVerificar();
+			quitarAristasQueNoRequierenProcesar();
+			contador++;
 		}
+		
+		
 		
 		
 		return this.arbol;
@@ -84,15 +92,17 @@ public class ArbolGeneradorMinimo<T1> {
 		
 		for (Distancia<T1> i : this.grafo.vecinos(nodoActualDelGrafo)) {
 			
+			Nodo<T1> nodoOrigenTemporal = this.arbol.obtenerVertice(this.nodoActualDelGrafo.getInformacion());
+			Nodo<T1> nodoDestinoTemporal = new Nodo<T1>(i.getDestino().getInformacion());
 			
-			Nodo<T1> nodoDestinoTemporal = new Nodo(i.getDestino().getInformacion());
 			
 			
-			Arista<T1> arista = new Arista(nodoActualParaArbol,nodoDestinoTemporal,i.getPeso());
 			
-			if (!this.estaAristaYaExiste(arista)) {
-				this.aristas.add(arista);
-			}
+				Arista<T1> arista = new Arista(nodoOrigenTemporal,nodoDestinoTemporal,i.getPeso());
+				if (!this.arbol.existeArista(arista)) {
+					this.aristas.add(arista);
+				
+				}
 		}
 	}
 	
@@ -114,6 +124,32 @@ public class ArbolGeneradorMinimo<T1> {
 		return Et;
 	}
 	
+	
+	private void quitarAristasQueNoRequierenProcesar() {
+		
+		ArrayList<Arista<T1>> listadoParaQuitar = new ArrayList<Arista<T1>>();
+		
+		for (Arista<T1> e : aristas) {
+			
+			Nodo<T1> a = this.arbol.obtenerVertice(e.getA().getInformacion());
+			Nodo<T1> b = this.arbol.obtenerVertice(e.getB().getInformacion());
+
+			
+			if (this.arbol.verificarVertice(e.getA()) && this.arbol.verificarVertice(e.getB())
+				&&	a.obtenerCantidadDeVecinos() != 0 && b.obtenerCantidadDeVecinos() != 0 	){
+				listadoParaQuitar.add(e);
+				
+				
+				
+			}
+		}
+		
+		if (listadoParaQuitar.size() > 0) {
+			for (Arista<T1> e : listadoParaQuitar) {
+				this.aristas.remove(e);
+			}
+		}
+	}
 	
 	
 	

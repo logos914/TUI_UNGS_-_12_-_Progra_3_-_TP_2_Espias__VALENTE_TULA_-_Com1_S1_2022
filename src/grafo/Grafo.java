@@ -135,22 +135,14 @@ public class Grafo<T1> {
 			return false;
 		}
 		
-		
-		
-		if (this.verificarVertice(nodoA) && this.verificarVertice(nodoB)) {
-			
-
-		
-		if (nodoA.esVecino(nodoB) && nodoB.esVecino(nodoA)) {
+		if (nodoA.esVecino(nodoB) || nodoB.esVecino(nodoA)) {
 			System.out.println("Esta arista ya existe");
 			return true;
 		} else {
 			return false;
 		}
 		
-		} else {
-			return false;
-		}
+		
 	}
 
 	// Cantidad de vertices
