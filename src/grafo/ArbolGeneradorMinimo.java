@@ -132,13 +132,9 @@ public class ArbolGeneradorMinimo<T1> {
 		
 		
 	private boolean estaAristaYaExiste(Arista<T1> a) {
-		
-		
-		
+
 		return this.arbol.existeArista(a);
-		
-		
-		
+
 	}
 		
 		
@@ -185,15 +181,14 @@ public class ArbolGeneradorMinimo<T1> {
 			Nodo<T1> a = this.arbol.obtenerVerticeConVecinos(e.getA());
 			Nodo<T1> b = this.arbol.obtenerVerticeConVecinos(e.getB());
 
-			
+			// Marcamos para borrar las aristas cuyos dos vértices existan ya en el árbol, y además dichos vértices ya tengan vecinos.
+			// Básicamente borramos las aristas que pueden crear circuitos en el árbol.
 			if (this.arbol.verificarVertice(e.getA()) && this.arbol.verificarVertice(e.getB())
 				&&	a.obtenerCantidadDeVecinos() != 0 && b.obtenerCantidadDeVecinos() != 0 	){
 				listadoParaQuitar.add(e);
-				
-				
-				
 			}
 		}
+		
 		
 		if (listadoParaQuitar.size() > 0) {
 			for (Arista<T1> e : listadoParaQuitar) {
