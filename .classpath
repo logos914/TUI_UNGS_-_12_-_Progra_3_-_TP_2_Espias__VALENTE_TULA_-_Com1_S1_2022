@@ -1,20 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="src/visual/mapa/JMapViewer.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="C:/Users/Valente/Downloads/jackson-annotations-2.13.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Valente/Downloads/jackson-core-2.13.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Valente/Downloads/jackson-databind-2.13.2.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Valente/Downloads/json-simple-1.1.1.jar"/>
-	<classpathentry kind="lib" path="Librerias/jackson-annotations-2.13.2.jar"/>
-	<classpathentry kind="lib" path="Librerias/jackson-core-2.13.2.jar"/>
-	<classpathentry kind="lib" path="Librerias/jackson-databind-2.13.2.2.jar"/>
-	<classpathentry kind="lib" path="Librerias/json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="src/modelo/json/json-simple-1.1.1.jar"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
