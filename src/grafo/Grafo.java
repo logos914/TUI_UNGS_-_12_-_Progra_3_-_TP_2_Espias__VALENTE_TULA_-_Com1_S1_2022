@@ -143,7 +143,7 @@ public class Grafo<T1> {
 		}
 		
 		if (nodoA.esVecino(nodoB) || nodoB.esVecino(nodoA)) {
-			System.out.println("Esta arista ya existe");
+			
 			return true;
 		} else {
 			return false;

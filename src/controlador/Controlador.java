@@ -176,7 +176,7 @@ public class Controlador {
 			agencia.ubicarEspia(espiasConPosicion,coordenada);
 			((UbicandoEspias) gui).CrearMarcador(agencia.obtenerEspia(espiasConPosicion).getCodigo() ,coordenada);
 			espiasConPosicion++;
-			System.out.println(coordenada);
+			
 		}
 		
 		if (espiasConPosicion == agencia.cantidadDeEspias() ) {
@@ -196,7 +196,7 @@ public class Controlador {
 		MapMarkerDot marcadorPresionado = this.obtenerMarcadorPresionado(puntoClickeado);
 		   
 		   if (marcadorPresionado != null) {
-			   System.out.println(marcadorPresionado.getName());
+			   
 			   
 			   Espia espiaOrigen = agencia.obtenerEspia(((CreandoComunicacion)gui).obtenerEspiaOrigen());
 			   Espia espiaDestino = agencia.obtenerEspia(marcadorPresionado.getName());
@@ -219,7 +219,7 @@ public class Controlador {
 				   }
 			   
 			   } catch (Exception excepcion) {
-				   System.out.println("No se puede crear esta arista\n" + excepcion);
+				  
 				   ((CreandoComunicacion)gui).cambiarMensaje("No se puede crear esta arista");
 			   }
 			   
