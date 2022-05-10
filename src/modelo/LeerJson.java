@@ -12,7 +12,7 @@ public class LeerJson {
 	Espia espia;
 	Agencia agencia = new Agencia();
 
-	public void leer() {
+	public Agencia leer() {
 		 JSONParser parser = new JSONParser();
     
     try {
@@ -32,5 +32,6 @@ public class LeerJson {
 		} catch (Exception ex) {
 			System.out.println("Exception: " + ex.getMessage());
 		}
+    return agencia;
 	}
 }

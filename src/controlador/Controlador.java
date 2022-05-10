@@ -102,7 +102,7 @@ public class Controlador {
 	
 	public void cargarEspias() {
 		LeerJson json = new LeerJson();
-		json.leer();
+		this.agencia = json.leer();
 	}
 	
 	
