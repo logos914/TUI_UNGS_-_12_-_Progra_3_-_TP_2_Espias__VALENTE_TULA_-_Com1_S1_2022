@@ -18,10 +18,12 @@ public class Grafo<T1> {
 		
 	}
 	
+	
 	public void agregarVertice(T1 informacion) {
 		Nodo<T1> nuevoNodo = new Nodo<T1>(informacion);
 		this.vertices.add(nuevoNodo);
 	}
+	
 	
 	public void agregarVertice(Nodo<T1> nodo) {
 		Nodo<T1> nuevoNodo = new Nodo(nodo.getInformacion());
@@ -53,8 +55,8 @@ public class Grafo<T1> {
 	
 	public void agregarArista(T1 a, T1 b, float peso) {
 		try {
-			Nodo<T1> nodoA = this.obtenerVertice(a);
-			Nodo<T1> nodoB = this.obtenerVertice(b);
+			Nodo<T1> nodoA = this.obtenerVerticeConVecinos(a);
+			Nodo<T1> nodoB = this.obtenerVerticeConVecinos(b);
 			
 			if (nodoA != null && nodoB != null) {
 				Arista<T1> arista = new Arista(nodoA,nodoB,peso);
@@ -128,8 +130,8 @@ public class Grafo<T1> {
 	public boolean existeArista(Arista<T1> arista)
 	{
 
-		Nodo<T1> nodoA = this.obtenerVertice(arista.getA().getInformacion());
-		Nodo<T1> nodoB = this.obtenerVertice(arista.getB().getInformacion());
+		Nodo<T1> nodoA = this.obtenerNodoSinVecinos(arista.getA());
+		Nodo<T1> nodoB = this.obtenerNodoSinVecinos(arista.getB());
 		
 		if (nodoA == null || nodoB == null) {
 			return false;
@@ -186,18 +188,48 @@ public class Grafo<T1> {
 	}
 	
 	
-	public Nodo<T1> obtenerVertice(int i) {
+	public Nodo<T1> obtenerVerticeConVecinos(int i) {
 		return this.vertices.get(i);
 	}
 	
-	public Nodo<T1> obtenerVertice(T1 e) {
+	
+	public Nodo<T1> obtenerVerticeConVecinos(Nodo<T1> e) {
+		return this.obtenerVerticeConVecinos(e.getInformacion());
+	}
+	
+	public Nodo<T1> obtenerVerticeConVecinos(T1 e) {
 		
 		for (Nodo<T1> i : this.obtenerTodosLosVertices()) {
 			if (i.getInformacion().equals(e)) {
 				return i;
 			}
 		}
+		
 		return null;
 	}
 	
+	
+	public Nodo<T1> obtenerVerticeSinVecinos(T1 e) {
+		Nodo<T1> nodoGrafo = this.obtenerVerticeConVecinos(e);
+		Nodo<T1> nodoDevolucion = new Nodo(nodoGrafo.getInformacion());
+		return nodoDevolucion;
+	}
+	
+	public T1 obtenerVerticeSinVecinos(Nodo<T1> e) {
+		Nodo<T1> nodoGrafo = this.obtenerVerticeConVecinos(e);
+		T1 informacionDevolver = nodoGrafo.getInformacion();
+		return informacionDevolver;
+	}
+	
+	public Nodo<T1> obtenerNodoSinVecinos(Nodo<T1> e) {
+		Nodo<T1> nodoGrafo = this.obtenerVerticeConVecinos(e);
+		
+		if (nodoGrafo == null) {
+			return null;
+		} else {
+			Nodo<T1> nodoDevolucion = new Nodo(nodoGrafo.getInformacion());
+			return nodoDevolucion;
+		}
+		
+	}
 }
