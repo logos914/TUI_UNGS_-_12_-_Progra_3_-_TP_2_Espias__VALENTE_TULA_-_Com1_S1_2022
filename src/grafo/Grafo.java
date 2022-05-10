@@ -127,8 +127,27 @@ public class Grafo<T1> {
 	// Informa si existe la arista especificada
 	public boolean existeArista(Arista<T1> arista)
 	{
-		if (arista.getA().esVecino(arista.getB()) && arista.getB().esVecino(arista.getA())) {
+
+		Nodo<T1> nodoA = this.obtenerVertice(arista.getA().getInformacion());
+		Nodo<T1> nodoB = this.obtenerVertice(arista.getB().getInformacion());
+		
+		if (nodoA == null || nodoB == null) {
+			return false;
+		}
+		
+		
+		
+		if (this.verificarVertice(nodoA) && this.verificarVertice(nodoB)) {
+			
+
+		
+		if (nodoA.esVecino(nodoB) && nodoB.esVecino(nodoA)) {
+			System.out.println("Esta arista ya existe");
 			return true;
+		} else {
+			return false;
+		}
+		
 		} else {
 			return false;
 		}
