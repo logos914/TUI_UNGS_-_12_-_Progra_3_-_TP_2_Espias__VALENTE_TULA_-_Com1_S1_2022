@@ -12,6 +12,7 @@ public class Espia {
 	public Espia(String alias, String codigo) {
 		this.alias = alias;
 		this.codigo = codigo;
+		this.coordenadas = null;
 	}
 	
 	public Espia(String alias, String codigo, Coordinate coordenadas) {
