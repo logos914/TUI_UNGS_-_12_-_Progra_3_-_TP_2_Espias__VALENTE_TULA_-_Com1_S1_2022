@@ -90,10 +90,13 @@ public class Controlador {
 	
 	// Aquí están las operaciones del controlador respecto a cambiar de ventana
 	
-	private void irHaciaCrearAgencia() {
-
+	private void irHaciaCrearAgencia(boolean cargarEspias) {
+		
 		this.gui.dispose();
 		this.gui = new CreandoAgencia();
+		if (cargarEspias) {
+			cargarEspias();
+		}
 		actualizarGUI();
 		escucharEventosAlCrearAgencia();
 		escucharEventoIrPantallaComunicaciones();
@@ -103,11 +106,15 @@ public class Controlador {
 	public void cargarEspias() {
 		LeerJson json = new LeerJson();
 		this.agencia = json.leer();
+		
+		for (Espia e : this.agencia.obtenerTodosLosEspias()) {
+			((CreandoAgencia) gui).agregarFilaEnTabla(e.getAlias(), e.getCodigo());
+		}
 	}
 	
 	
 	private void irHaciaUbicarEspiasEnMapa() {
-		cargarEspias();
+		
 		this.gui.dispose();
 		this.gui = new UbicandoEspias();
 		actualizarGUI();
@@ -280,13 +287,13 @@ public class Controlador {
 	
 	class OyenteNuevaAgencia implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			irHaciaCrearAgencia();
+			irHaciaCrearAgencia(false);
 		}
 	}
 	
 	class OyenteCargarAgencia implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			irHaciaUbicarEspiasEnMapa();
+			irHaciaCrearAgencia(true);
 		}
 	}
 
